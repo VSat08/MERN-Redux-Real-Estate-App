@@ -5,6 +5,10 @@ import { errorHandler } from "../utils/error.js";
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
 
+  if (!email || !password || !username) {
+    return next(errorHandler(400, "Please Enter complete details"));
+  }
+
   const hashedPasword = bcryptjs.hashSync(password, 10);
   const createNewUser = new User({ username, email, password: hashedPasword });
 
