@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { FiCloudLightning } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -28,7 +28,7 @@ export default function SignUp() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      if (data.success ==false) {
+      if (data.success == false) {
         setLoading(false);
         setError(data.message);
         return;
@@ -89,6 +89,7 @@ export default function SignUp() {
         >
           {loading ? "loading" : "Sign Up"}
         </button>
+        <OAuth />
       </form>
       <div className="mt-4">
         <p className=" text-center font-medium">

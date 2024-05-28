@@ -6,7 +6,7 @@ import {
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
-
+import OAuth from "../components/OAuth";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
@@ -64,7 +64,7 @@ export default function SignIn() {
           let's Log in!
         </span>
       </h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 ">
         <input
           onChange={handleChange}
           type="email"
@@ -86,6 +86,7 @@ export default function SignIn() {
         >
           {loading ? "loading" : "Login"}
         </button>
+        <OAuth />
       </form>
       <div className="mt-4">
         <p className=" text-center font-medium text-sm">
