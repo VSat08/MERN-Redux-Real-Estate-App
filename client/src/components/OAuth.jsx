@@ -1,5 +1,7 @@
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
+import { FaApple } from "react-icons/fa";
+
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { app } from "../firebase";
 import { useDispatch } from "react-redux";
@@ -9,6 +11,9 @@ import { useNavigate } from "react-router-dom";
 export default function OAuth() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const handleAppleClick = async () => {
+    alert("Still Working on...");
+  };
   const handleGoogleClick = async () => {
     try {
       // alert("Google authenticated");
@@ -38,8 +43,13 @@ export default function OAuth() {
     }
   };
   return (
-    <button onClick={handleGoogleClick} type="button">
-      <FcGoogle className="text-2xl hover:opacity-80 hover:scale-125 hover:-rotate-12 transition-all ease-out duration-200" />
-    </button>
+    <div className="flex justify-center gap-4 ">
+      <button onClick={handleGoogleClick} type="button">
+        <FcGoogle className="text-3xl hover:opacity-80 hover:scale-125 hover:-rotate-12 transition-all ease-out duration-200" />
+      </button>
+      <button onClick={handleAppleClick} type="button">
+        <FaApple className="text-3xl hover:opacity-80 hover:scale-125 hover:-rotate-12 transition-all ease-out duration-200" />
+      </button>
+    </div>
   );
 }
