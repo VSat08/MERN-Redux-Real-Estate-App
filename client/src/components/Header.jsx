@@ -6,19 +6,19 @@ import { useSelector } from "react-redux";
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   return (
-    <header className="bg-slate-200 ">
-      <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
+    <header className=" ">
+      <div className="flex justify-between items-center max-w-6xl mx-auto py-2 px-6 bg-[rgba(255,255,255,.3)] backdrop-blur-sm rounded-full my-3">
         <Link to="/">
           <h1 className="font-bold text-sm sm:text-xl flex-wrap">
             <span className="text-red-400">Real</span>
             <span>Estate App</span>
           </h1>
         </Link>
-        <form className="bg-slate-100 p-3 rounded-lg flex justify-between items-center">
+        <form className="bg-slate-100 p-1.5 px-3 rounded-3xl flex justify-between items-center">
           <input
             type="text"
             placeholder="search..."
-            className="bg-transparent focus:outline-none w-24 sm:w-64"
+            className="bg-transparent focus:outline-none w-24 sm:w-48 md:w-64 "
           />
           <FiSearch className="text-slate-500" />
         </form>
