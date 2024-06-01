@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { BiHide } from "react-icons/bi";
 import { BiShowAlt } from "react-icons/bi";
@@ -6,12 +6,71 @@ import { MdTipsAndUpdates } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
 import { RiArrowGoBackFill } from "react-icons/ri";
+import { HiOutlineUpload } from "react-icons/hi";
+import { RiErrorWarningFill } from "react-icons/ri";
+import { FaRegThumbsUp } from "react-icons/fa";
+
+
+import { useRef } from "react";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { app } from "../firebase";
 
 export default function Profile() {
+  const fileRef = useRef(null);
   const [showPassword, setShowPassword] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+  const [file, setFile] = useState(undefined);
+  const [uploadPerc, setUploadPerc] = useState(0);
+  const [uploadError, setUploadError] = useState(false);
+  const [formData, setFormData] = useState({});
+  // console.log(formData);
+
+  // console.log(file);
+  // console.log(uploadPerc);
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  // firebase storage
+  //  allow read;
+  //     allow write:if
+  //     request.resource.size < 2 * 1024 * 1024 &&
+  //     request.resource.contentType.matches('image/.*')
+
+  useEffect(() => {
+    if (file) {
+      handleFileUpload(file);
+    }
+  }, [file]);
+
+  const handleFileUpload = (file) => {
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + file.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadPerc(Math.round(progress));
+      },
+      (error) => {
+        setUploadError(true);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+          setFormData({ ...formData, avatar: downloadURL })
+        );
+      }
+    );
   };
   return (
     <div className="w-full px-8 mx-auto  md:max-w-3xl lg:max-w-6xl">
@@ -28,12 +87,50 @@ export default function Profile() {
       </div>
       <div className="p-4 flex w-full mx-auto  gap-1 flex-wrap ">
         {/* left columns */}
-        <div className="bg-[rgba(255,255,255,.3)] backdrop-blur-sm w-full md:w-1/3  flex flex-col py-4 rounded-2xl ">
-          <img
+        <div className="bg-[#ebebeb] md:bg-[rgba(255,255,255,.3)] md:backdrop-blur-sm w-full md:w-1/3  flex flex-col py-4 rounded-2xl ">
+          <div className="relative rounded-full h-24 w-24 self-center mt-2 group">
+            <div className="absolute inset-0 h-full w-full  z-10  rounded-full flex group overflow-hidden ">
+              <HiOutlineUpload className="w-12 h-12 font- m-auto group-hover:text-white translate-y-16 group-hover:translate-y-0 opacity-0 group-hover:opacity-100  transition-all duration-200 ease-out " />
+              <form>
+                <input
+                  onChange={(e) => setFile(e.target.files[0])}
+                  type="file"
+                  ref={fileRef}
+                  className="absolute inset-0 opacity-0 cursor-pointer"
+                  accept="image/*"
+                />
+              </form>
+            </div>
+            <img
+              className="rounded-full h-24 w-24 object-cover self-center group-hover:scale-105 transition-all duration-200 ease-out group-hover:rotate-6 group-hover:opacity-85 "
+              src={formData.avatar || currentUser.avatar}
+              alt="profile"
+            />
+          </div>
+         
+            <p className="self-center my-2">
+              {uploadError ? (
+                <span className="text-red-600 font-medium flex gap-1 items-center">
+                  <RiErrorWarningFill />
+                  Error Image Upload
+                </span>
+              ) : uploadPerc > 0 && uploadPerc < 100 ? (
+                <span className="text-slate-700">Uploading {uploadPerc}%</span>
+              ) : uploadPerc === 100 ? (
+                <span className="text-green-600 font-medium flex gap-2 items-center">
+                  Successfully Uploaded!
+                  <FaRegThumbsUp className="text-lg" />
+                </span>
+              ) : (
+                ""
+              )}
+            </p>
+  
+          {/* <img
             className="rounded-full h-24 w-24 object-cover self-center mt-2"
             src={currentUser.avatar}
             alt="profile"
-          />
+          /> */}
           <div className="self-center space-y-4">
             <h1 className="leading-snug text-2xl md:text-xl lg:text-2xl font-extrabold my-2">
               Hi there!
