@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-
+import cookieParser from "cookie-parser";
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 
@@ -18,6 +18,8 @@ mongoose
 
 const app = express();
 app.use(express.json());
+
+app.use(cookieParser());
 
 app.listen(3000, () => console.log("> Server is up and running on 3000 : "));
 

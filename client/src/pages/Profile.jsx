@@ -10,7 +10,6 @@ import { HiOutlineUpload } from "react-icons/hi";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { FaRegThumbsUp } from "react-icons/fa";
 
-
 import { useRef } from "react";
 import {
   getDownloadURL,
@@ -87,7 +86,7 @@ export default function Profile() {
       </div>
       <div className="p-4 flex w-full mx-auto  gap-1 flex-wrap ">
         {/* left columns */}
-        <div className="bg-[#ebebeb] md:bg-[rgba(255,255,255,.3)] md:backdrop-blur-sm w-full md:w-1/3  flex flex-col py-4 rounded-2xl ">
+        <div className="bg-[#ebebeb] md:bg-[rgba(255,255,255,.3)] md:backdrop-blur-sm w-full md:w-1/3  flex flex-col py-4 rounded-3xl  md:shadow-2xl md:shadow-gray-300">
           <div className="relative rounded-full h-24 w-24 self-center mt-2 group">
             <div className="absolute inset-0 h-full w-full  z-10  rounded-full flex group overflow-hidden ">
               <HiOutlineUpload className="w-12 h-12 font- m-auto group-hover:text-white translate-y-16 group-hover:translate-y-0 opacity-0 group-hover:opacity-100  transition-all duration-200 ease-out " />
@@ -107,25 +106,25 @@ export default function Profile() {
               alt="profile"
             />
           </div>
-         
-            <p className="self-center my-2">
-              {uploadError ? (
-                <span className="text-red-600 font-medium flex gap-1 items-center">
-                  <RiErrorWarningFill />
-                  Error Image Upload
-                </span>
-              ) : uploadPerc > 0 && uploadPerc < 100 ? (
-                <span className="text-slate-700">Uploading {uploadPerc}%</span>
-              ) : uploadPerc === 100 ? (
-                <span className="text-green-600 font-medium flex gap-2 items-center">
-                  Successfully Uploaded!
-                  <FaRegThumbsUp className="text-lg" />
-                </span>
-              ) : (
-                ""
-              )}
-            </p>
-  
+
+          <p className="self-center my-2">
+            {uploadError ? (
+              <span className="text-red-600 font-medium flex gap-1 items-center">
+                <RiErrorWarningFill />
+                Error Image Upload
+              </span>
+            ) : uploadPerc > 0 && uploadPerc < 100 ? (
+              <span className="text-slate-700">Uploading {uploadPerc}%</span>
+            ) : uploadPerc === 100 ? (
+              <span className="text-green-600 font-medium flex gap-2 items-center">
+                Successfully Uploaded!
+                <FaRegThumbsUp className="text-lg" />
+              </span>
+            ) : (
+              ""
+            )}
+          </p>
+
           {/* <img
             className="rounded-full h-24 w-24 object-cover self-center mt-2"
             src={currentUser.avatar}
@@ -143,31 +142,31 @@ export default function Profile() {
         </div>
         {/* right column */}
         <div className="w-full md:w-3/5 mx-auto md:max-w-md">
-          <h1 className="leading-snug text-xl md:text-2xl lg:text-4xl  font-extrabold my-2 ">
+          <h1 className="leading-snug text-xl md:text-2xl lg:text-4xl  font-extrabold mt-2 md:mt-16 ">
             Let's
-            <span className="text-3xl md:text-4xl lg:text-5xl block">
+            <span className="text-3xl md:text-5xl lg:text-6xl block">
               Update Your Profile!
             </span>
           </h1>
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4 mt-8 md:mt-10">
             <input
               id="username"
               type="text"
               placeholder="username"
-              className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-lg shadow-gray-300"
+              className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-inner  shadow-gray-300"
             />
             <input
               id="email"
               type="email"
               placeholder="email"
-              className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-lg shadow-gray-300"
+              className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-lg shadow-gray-200"
             />
             <div className="relative">
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="password"
-                className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-lg shadow-gray-300 w-full"
+                className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-inner shadow-gray-300 w-full"
               />
               <button
                 type="button"
