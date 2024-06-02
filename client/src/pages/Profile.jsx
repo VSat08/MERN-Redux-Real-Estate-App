@@ -124,7 +124,7 @@ export default function Profile() {
     }
   };
   return (
-    <div className="w-full px-8 mx-auto  md:max-w-3xl lg:max-w-6xl">
+    <div className="w-full px-8 mx-auto  md:max-w-6xl">
       <div className="absolute -top-14 -z-10 left-0 w-full">
         <img
           src="https://img.freepik.com/premium-vector/set-indian-men-women-avatars-smiling-male-female-cartoon-characters-collection-horizontal-portrait_48369-25012.jpg?w=1480"
@@ -136,9 +136,11 @@ export default function Profile() {
         <RiArrowGoBackFill />
         Home
       </div>
-      <div className="p-4 flex w-full mx-auto  gap-1 flex-wrap ">
+      <div className="p-4 flex w-full mx-auto  gap-1 flex-wrap justify-between">
+
+
         {/* left columns */}
-        <div className="bg-[#ebebeb] md:bg-[rgba(255,255,255,.3)] md:backdrop-blur-sm w-full md:w-1/3  flex flex-col py-4 rounded-3xl  md:shadow-2xl md:shadow-gray-300">
+        <div className="bg-[#ebebeb] md:bg-[rgba(255,255,255,.3)] md:backdrop-blur-sm w-full md:w-1/3  flex flex-col py-4 rounded-3xl  md:shadow-2xl lg:w-1/3 md:shadow-gray-300">
           <div className="relative rounded-full h-24 w-24 self-center mt-2 group">
             <div className="absolute inset-0 h-full w-full  z-10  rounded-full flex group overflow-hidden ">
               <HiOutlineUpload className="w-12 h-12 font- m-auto group-hover:text-white translate-y-16 group-hover:translate-y-0 opacity-0 group-hover:opacity-100  transition-all duration-200 ease-out " />
@@ -178,15 +180,16 @@ export default function Profile() {
           </p>
 
           <div className="self-center space-y-4">
-            <h1 className="leading-snug text-2xl md:text-xl lg:text-2xl font-extrabold my-2">
-              Hi there!
-              <span className="text-4xl md:text-2xl lg:text-4xl block">
-                {currentUser.username}
+            <h1 className="leading-snug text-3xl md:text-2xl lg:text-3xl font-extrabold my-2">
+              Hola
+              <span className="text-sm lg:text-lg block font-semibold">
+                {currentUser.username} !
               </span>
             </h1>
             <p className="font-medium text-sm">{currentUser.email}</p>
           </div>
         </div>
+
         {/* right column */}
         <div className="w-full md:w-3/5 mx-auto md:max-w-md">
           <h1 className="leading-snug text-xl md:text-2xl lg:text-4xl  font-extrabold mt-2 md:mt-16 ">
