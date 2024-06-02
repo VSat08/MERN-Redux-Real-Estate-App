@@ -82,7 +82,7 @@ export default function SignIn() {
         {error && <p className="text-red-500">{error}</p>}
         <button
           disabled={loading}
-          className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-lg p-3 disabled:opacity-20"
+          className="bg-gradient-to-r from-orange-500  to-yellow-300  text-white p-3 rounded-xl shadow-lg  disabled:opacity-20"
         >
           {loading ? "loading" : "Login"}
         </button>
@@ -93,9 +93,9 @@ export default function SignIn() {
           Oh shit! You are the new member?
           <Link
             to="/sign-up"
-            className=" mx-2 bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500  text-transparent bg-clip-text"
+            className=" mx-2 bg-gradient-to-r from-orange-500  via-yellow-500 to bg-red-500  text-transparent bg-clip-text"
           >
-            Lets Signup
+            Lets Signup !
           </Link>
         </p>
       </div>

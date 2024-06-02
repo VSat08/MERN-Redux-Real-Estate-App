@@ -9,6 +9,7 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 import { HiOutlineUpload } from "react-icons/hi";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { FaRegThumbsUp } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 import { useRef } from "react";
 import {
@@ -18,23 +19,29 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase";
+import {
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
+} from "../redux/user/userSlice";
+
+import { useDispatch } from "react-redux";
 
 export default function Profile() {
   const fileRef = useRef(null);
   const [showPassword, setShowPassword] = useState(false);
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
   const [uploadPerc, setUploadPerc] = useState(0);
   const [uploadError, setUploadError] = useState(false);
   const [formData, setFormData] = useState({});
+
+  const dispatch = useDispatch();
+  // console.log(formData)
   // console.log(formData);
 
   // console.log(file);
   // console.log(uploadPerc);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
 
   // firebase storage
   //  allow read;
@@ -47,6 +54,14 @@ export default function Profile() {
       handleFileUpload(file);
     }
   }, [file]);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
 
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
@@ -70,6 +85,43 @@ export default function Profile() {
         );
       }
     );
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // console.log(formData);
+
+    try {
+      dispatch(updateUserStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(updateUserFailure(data.message));
+        return;
+      }
+      dispatch(updateUserSuccess(data));
+      Swal.fire({
+        position: "bottom-end",
+        icon: "success",
+        toast: "true",
+        timerProgressBar: "true",
+        title: "Persona updated !",
+        showConfirmButton: false,
+        timer: 3000,
+        color: "#fff",
+        padding: "10px",
+        width: "18em",
+        background: "#1a1a1a",
+      });
+    } catch (error) {
+      dispatch(updateUserFailure(error.message));
+    }
   };
   return (
     <div className="w-full px-8 mx-auto  md:max-w-3xl lg:max-w-6xl">
@@ -101,7 +153,7 @@ export default function Profile() {
               </form>
             </div>
             <img
-              className="rounded-full h-24 w-24 object-cover self-center group-hover:scale-105 transition-all duration-200 ease-out group-hover:rotate-6 group-hover:opacity-85 "
+              className="rounded-full h-24 w-24 object-cover self-center group-hover:scale-105 transition-all duration-200 ease-out group-hover:rotate-6 group-hover:opacity-95 group-hover:blur-[2px] "
               src={formData.avatar || currentUser.avatar}
               alt="profile"
             />
@@ -125,11 +177,6 @@ export default function Profile() {
             )}
           </p>
 
-          {/* <img
-            className="rounded-full h-24 w-24 object-cover self-center mt-2"
-            src={currentUser.avatar}
-            alt="profile"
-          /> */}
           <div className="self-center space-y-4">
             <h1 className="leading-snug text-2xl md:text-xl lg:text-2xl font-extrabold my-2">
               Hi there!
@@ -148,36 +195,54 @@ export default function Profile() {
               Update Your Profile!
             </span>
           </h1>
-          <form className="flex flex-col gap-4 mt-8 md:mt-10">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-4 mt-8 md:mt-10"
+          >
             <input
               id="username"
               type="text"
+              defaultValue={currentUser.username}
+              onChange={handleChange}
               placeholder="username"
-              className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-inner  shadow-gray-300"
+              className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-inner  shadow-gray-300 text-gray-400 focus:text-black"
             />
             <input
               id="email"
               type="email"
+              defaultValue={currentUser.email}
+              onChange={handleChange}
               placeholder="email"
-              className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-lg shadow-gray-200"
+              className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-lg shadow-gray-200 text-gray-400 focus:text-black"
             />
             <div className="relative">
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="password"
+                onChange={handleChange}
                 className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-inner shadow-gray-300 w-full"
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                className="absolute inset-y-0 right-0 pr-6 flex items-center"
                 onClick={togglePasswordVisibility}
               >
                 {showPassword ? <BiShowAlt /> : <BiHide />}
               </button>
             </div>
-            <button className="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500  to-yellow-300  text-white p-3 rounded-xl shadow-lg">
-              Update <MdTipsAndUpdates className="text-xl" />
+            <button
+              disabled={loading}
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500  to-yellow-300  text-white p-3 rounded-xl shadow-lg"
+            >
+              {loading ? (
+                "loading..."
+              ) : (
+                <>
+                  Update
+                  <MdTipsAndUpdates className="text-xl" />
+                </>
+              )}
             </button>
           </form>
           <div className=" flex justify-between mt-5">
@@ -188,6 +253,9 @@ export default function Profile() {
               Sig out <FiLogOut />
             </span>
           </div>
+          <p className="text-red-700 font-medium mt-4 h-4 text-center">
+            {error && error}
+          </p>
         </div>
       </div>
     </div>
