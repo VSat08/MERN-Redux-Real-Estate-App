@@ -89,8 +89,8 @@ export default function SignIn() {
         <OAuth />
       </form>
       <div className="mt-4">
-        <p className=" text-center font-medium text-sm">
-          Oh shit! You are the new member?
+        <p className=" text-center font-medium ">
+          Hey! New Face Ah?
           <Link
             to="/sign-up"
             className=" mx-2 bg-gradient-to-r from-orange-500  via-yellow-500 to bg-red-500  text-transparent bg-clip-text"

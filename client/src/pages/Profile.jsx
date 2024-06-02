@@ -26,6 +26,9 @@ import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
+  signOutUserStart,
+  signOutUserFailure,
+  signOutUserSuccess,
 } from "../redux/user/userSlice";
 
 import { useDispatch } from "react-redux";
@@ -133,30 +136,59 @@ export default function Profile() {
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
         method: "DELETE",
       });
-      const data = res.json();
+      const data = await res.json();
 
       if (data.success === false) {
         dispatch(deleteUserFailure(data.message));
         return;
       }
       dispatch(deleteUserSuccess(data));
-       Swal.fire({
-         position: "bottom-end",
-         icon: "success",
-         toast: "true",
-         timerProgressBar: "true",
-         title: "Account Deleted !!",
-         showConfirmButton: false,
-         timer: 3000,
-         color: "#fff",
-         padding: "10px",
-         width: "18em",
-         background: "#1a1a1a",
-       });
+      Swal.fire({
+        position: "bottom-end",
+        icon: "success",
+        toast: "true",
+        timerProgressBar: "true",
+        title: "Account Deleted !!",
+        showConfirmButton: false,
+        timer: 3000,
+        color: "#fff",
+        padding: "10px",
+        width: "18em",
+        background: "#1a1a1a",
+      });
     } catch (error) {
       dispatch(deleteUserFailure(error.message));
     }
   };
+
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch("/api/auth/signout");
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message));
+        return;
+      }
+      dispatch(signOutUserSuccess());
+      Swal.fire({
+        position: "top",
+        icon: "success",
+        toast: "true",
+        timerProgressBar: "true",
+        title: data,
+        showConfirmButton: false,
+        timer: 3000,
+        color: "#fff",
+        padding: "5px",
+        background: "#1a1a1a",
+      });
+    } catch (error) {
+      dispatch(signOutUserFailure(error.message));
+    }
+  };
+
   return (
     <div className="w-full px-8 mx-auto  md:max-w-6xl">
       <div className="absolute -top-14 -z-10 left-0 w-full">
@@ -287,7 +319,10 @@ export default function Profile() {
             >
               Delete Account <FaTrash />
             </span>
-            <span className="cursor-pointer text-red-600 font-medium text-sm flex items-center gap-1">
+            <span
+              onClick={handleSignOut}
+              className="cursor-pointer text-red-600 font-medium text-sm flex items-center gap-1"
+            >
               Sign out <FiLogOut />
             </span>
           </div>
