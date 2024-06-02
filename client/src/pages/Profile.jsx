@@ -23,6 +23,9 @@ import {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
 } from "../redux/user/userSlice";
 
 import { useDispatch } from "react-redux";
@@ -123,6 +126,37 @@ export default function Profile() {
       dispatch(updateUserFailure(error.message));
     }
   };
+
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = res.json();
+
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+       Swal.fire({
+         position: "bottom-end",
+         icon: "success",
+         toast: "true",
+         timerProgressBar: "true",
+         title: "Account Deleted !!",
+         showConfirmButton: false,
+         timer: 3000,
+         color: "#fff",
+         padding: "10px",
+         width: "18em",
+         background: "#1a1a1a",
+       });
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
   return (
     <div className="w-full px-8 mx-auto  md:max-w-6xl">
       <div className="absolute -top-14 -z-10 left-0 w-full">
@@ -137,8 +171,6 @@ export default function Profile() {
         Home
       </div>
       <div className="p-4 flex w-full mx-auto  gap-1 flex-wrap justify-between">
-
-
         {/* left columns */}
         <div className="bg-[#ebebeb] md:bg-[rgba(255,255,255,.3)] md:backdrop-blur-sm w-full md:w-1/3  flex flex-col py-4 rounded-3xl  md:shadow-2xl lg:w-1/3 md:shadow-gray-300">
           <div className="relative rounded-full h-24 w-24 self-center mt-2 group">
@@ -249,11 +281,14 @@ export default function Profile() {
             </button>
           </form>
           <div className=" flex justify-between mt-5">
-            <span className="cursor-pointer  font-medium text-sm flex items-center gap-1">
+            <span
+              onClick={handleDeleteUser}
+              className="cursor-pointer text-slate-500 font-medium text-sm flex items-center gap-1"
+            >
               Delete Account <FaTrash />
             </span>
             <span className="cursor-pointer text-red-600 font-medium text-sm flex items-center gap-1">
-              Sig out <FiLogOut />
+              Sign out <FiLogOut />
             </span>
           </div>
           <p className="text-red-700 font-medium mt-4 h-4 text-center">

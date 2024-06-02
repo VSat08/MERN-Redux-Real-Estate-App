@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import Swal from "sweetalert2";
+
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -36,6 +38,19 @@ export default function SignUp() {
       setLoading(false);
       setError(null);
       navigate("/sign-in");
+       Swal.fire({
+         position: "top-end",
+         icon: "success",
+         toast: "true",
+         timerProgressBar: "true",
+         title: "Yay! Account Created !",
+         showConfirmButton: false,
+         timer: 3000,
+         color: "#fff",
+         padding: "10px",
+         width: "18em",
+         background: "#1a1a1a",
+       });
     } catch (err) {
       setLoading(false);
       setError(err.message);
