@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { BiHide } from "react-icons/bi";
 import { BiShowAlt } from "react-icons/bi";
@@ -8,6 +10,7 @@ import { FaTrash } from "react-icons/fa";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { HiOutlineUpload } from "react-icons/hi";
 import { RiErrorWarningFill } from "react-icons/ri";
+import { FaPencilAlt } from "react-icons/fa";
 import { FaRegThumbsUp } from "react-icons/fa";
 import Swal from "sweetalert2";
 
@@ -204,7 +207,7 @@ export default function Profile() {
       </div>
       <div className="p-4 flex w-full mx-auto  gap-1 flex-wrap justify-between">
         {/* left columns */}
-        <div className="bg-[#ebebeb] md:bg-[rgba(255,255,255,.3)] md:backdrop-blur-sm w-full md:w-1/3  flex flex-col py-4 rounded-3xl  md:shadow-2xl lg:w-1/3 md:shadow-gray-300">
+        <div className="bg-[#ebebeb] md:bg-[rgba(255,255,255,.3)] md:backdrop-blur-sm w-full md:w-1/3  flex flex-col py-4 rounded-3xl  md:shadow-2xl lg:w-1/3 md:shadow-gray-300 ">
           <div className="relative rounded-full h-24 w-24 self-center mt-2 group">
             <div className="absolute inset-0 h-full w-full  z-10  rounded-full flex group overflow-hidden ">
               <HiOutlineUpload className="w-12 h-12 font- m-auto group-hover:text-white translate-y-16 group-hover:translate-y-0 opacity-0 group-hover:opacity-100  transition-all duration-200 ease-out " />
@@ -252,6 +255,18 @@ export default function Profile() {
             </h1>
             <p className="font-medium text-sm">{currentUser.email}</p>
           </div>
+          <Link
+            to={"/create-listing"}
+            className=" self-center my-4 text-center   hover:scale-105 transition-transform duration-300 ease-out group"
+          >
+            <motion.button
+              whileTap={{ scale: 0.75 }}
+              className="bg-gradient-to-r from-gray-900 via-black to-gray-900 p-3 px-4 rounded-xl cursor-pointer font-medium border-none text-white shadow-xl shadow-black/40 w-40 md:w-44 lg:w-56 text-sm md:text-base flex items-center gap-1 justify-center group-hover:gap-[7px] "
+            >
+              <FaPencilAlt />
+              Create Listings
+            </motion.button>
+          </Link>
         </div>
 
         {/* right column */}
@@ -300,7 +315,7 @@ export default function Profile() {
             </div>
             <button
               disabled={loading}
-              className="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500  to-yellow-300  text-white p-3 rounded-xl shadow-lg"
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500  to-yellow-300  text-white p-3 rounded-xl shadow-orange-400/35  shadow-lg"
             >
               {loading ? (
                 "loading..."
