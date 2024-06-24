@@ -7,7 +7,7 @@ export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   return (
     <header className="  px-2.5 md:px-4">
-      <div className="flex justify-between items-center max-w-6xl mx-auto py-2.5 px-6 bg-[rgba(255,255,255,.3)] backdrop-blur-sm rounded-full my-3">
+      <div className="flex justify-between items-center max-w-6xl mx-auto py-3 px-6 bg-[rgba(255,255,255,.3)] backdrop-blur-sm rounded-full my-3">
         <Link to="/">
           <h1 className="font-bold text-sm sm:text-xl flex-wrap">
             <span className="text-red-400">Real</span>

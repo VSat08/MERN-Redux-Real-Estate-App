@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { BiHide } from "react-icons/bi";
 import { BiShowAlt } from "react-icons/bi";
 import { MdTipsAndUpdates } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaUmbrellaBeach } from "react-icons/fa";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { HiOutlineUpload } from "react-icons/hi";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { FaPencilAlt } from "react-icons/fa";
 import { FaRegThumbsUp } from "react-icons/fa";
+import { GrEdit, GrList } from "react-icons/gr";
+import { IoMdTrash } from "react-icons/io";
+import { TbArrowBackUp } from "react-icons/tb";
+
 import Swal from "sweetalert2";
 
 import { useRef } from "react";
@@ -35,14 +39,19 @@ import {
 } from "../redux/user/userSlice";
 
 import { useDispatch } from "react-redux";
+import { Modal } from "../components/Modal";
 
 export default function Profile() {
+  const [isOpen, setIsOpen] = useState(false);
+
   const fileRef = useRef(null);
+  const [file, setFile] = useState(undefined);
   const [showPassword, setShowPassword] = useState(false);
   const { currentUser, loading, error } = useSelector((state) => state.user);
-  const [file, setFile] = useState(undefined);
   const [uploadPerc, setUploadPerc] = useState(0);
   const [uploadError, setUploadError] = useState(false);
+  const [showListingsError, setShowListingsError] = useState(false);
+  const [userListings, setUserListings] = useState([]);
   const [formData, setFormData] = useState({});
 
   const dispatch = useDispatch();
@@ -192,6 +201,47 @@ export default function Profile() {
     }
   };
 
+  const handleShowListings = async () => {
+    setIsOpen(true);
+    try {
+      setShowListingsError(false);
+      const res = await fetch(`/api/user/listings/${currentUser._id}`);
+      const data = await res.json();
+      if (data.success === false) {
+        setShowListingsError(true);
+        Swal.fire({
+          position: "top",
+          icon: "error",
+          toast: "true",
+          timerProgressBar: "true",
+          title: data.message,
+          showConfirmButton: false,
+          timer: 3000,
+          color: "red",
+          padding: "5px",
+          background: "#1a1a1a",
+        });
+        return;
+      }
+
+      setUserListings(data);
+    } catch (error) {
+      setShowListingsError(true);
+      Swal.fire({
+        position: "top",
+        icon: "error",
+        toast: "true",
+        timerProgressBar: "true",
+        title: data,
+        showConfirmButton: false,
+        timer: 3000,
+        color: "red",
+        padding: "5px",
+        background: "#1a1a1a",
+      });
+    }
+  };
+
   return (
     <div className="w-full px-8 mx-auto  md:max-w-6xl">
       <div className="absolute -top-14 -z-10 left-0 w-full">
@@ -255,18 +305,29 @@ export default function Profile() {
             </h1>
             <p className="font-medium text-sm">{currentUser.email}</p>
           </div>
-          <Link
-            to={"/create-listing"}
-            className=" self-center my-4 text-center   hover:scale-105 transition-transform duration-300 ease-out group"
-          >
-            <motion.button
-              whileTap={{ scale: 0.75 }}
-              className="bg-gradient-to-r from-gray-900 via-black to-gray-900 p-3 px-4 rounded-xl cursor-pointer font-medium border-none text-white shadow-xl shadow-black/40 w-40 md:w-44 lg:w-56 text-sm md:text-base flex items-center gap-1 justify-center group-hover:gap-[7px] "
+          <div className="mx-auto my-4 flex gap-5 items-center flex-wrap justify-center">
+            <Link
+              to={"/create-listing"}
+              className=" self-center text-center   hover:scale-105 transition-transform duration-300 ease-out group"
             >
-              <FaPencilAlt />
-              Create Listings
+              <motion.button
+                whileTap={{ scale: 0.75 }}
+                className="bg-gradient-to-r from-gray-900 via-black to-gray-900 p-3 px-4 rounded-xl cursor-pointer font-medium border-none text-white  shadow-xl shadow-gray-400/60 w-40 md:w-44 lg:w-56 text-sm md:text-base flex items-center gap-1 justify-center group-hover:gap-[7px] "
+              >
+                <FaPencilAlt />
+                Create Listings
+              </motion.button>
+            </Link>
+
+            <motion.button
+              onClick={handleShowListings}
+              whileTap={{ scale: 0.75 }}
+              className="self-center text-center hover:scale-105 transition-transform duration-300 ease-out bg-gradient-to-r from-orange-500 to-yellow-400 text-white rounded-xl shadow-orange-400/35 shadow-lg p-3 px-4 cursor-pointer font-medium border-none  w-40 md:w-44 lg:w-56 text-sm md:text-base flex items-center gap-1 hover:gap-2  justify-center group-hover:gap-[7px]"
+            >
+              <GrList />
+              Show Listings
             </motion.button>
-          </Link>
+          </div>
         </div>
 
         {/* right column */}
@@ -341,11 +402,70 @@ export default function Profile() {
               Sign out <FiLogOut />
             </span>
           </div>
+
           <p className="text-red-700 font-medium mt-4 h-4 text-center">
             {error && error}
           </p>
         </div>
       </div>
+      {/* modal */}
+      <AnimatePresence>
+        {isOpen && (
+          <Modal>
+            <h2 className="flex gap-2 items-center justify-center text-2xl my-7">
+              My Listings{" "}
+              <FaUmbrellaBeach className="animate-bounce animate-infinite animate-duration-[3000ms] animate-ease-in-out" />
+            </h2>
+            {/* <p>Modal Content</p> */}
+            <div className="overflow-y-auto max-h-60 space-y-2">
+              {userListings && userListings.length > 0 ? (
+                userListings.map((listing) => (
+                  <div
+                    key={listing._id}
+                    className="flex items-center justify-between border rounded-2xl p-2.5 gap-4"
+                  >
+                    <Link to={`/listing/${listing._id}`}>
+                      <img
+                        className="h-14 w-14 rounded-full object-cover"
+                        src={listing.imageUrls[0]}
+                        alt="Listing cover"
+                      />
+                    </Link>
+                    <Link
+                      className="flex-1 truncate"
+                      to={`/listing/${listing._id}`}
+                    >
+                      <p className="text-sm font-semibold text-slate-700 ">
+                        {listing.name}
+                      </p>
+                    </Link>
+                    <div className="space-x-3">
+                      <button className="text-black/80 ring-2 rounded-full ring-red-400 p-1 hover:scale-110 hover:-translate-y-1 transition-all ease-in-out duration-200 animate-wiggle animate-infinite ">
+                        <IoMdTrash className="" />
+                      </button>
+                      <button className="text-gray-600 ring-2 rounded-full ring-green-400 p-1 hover:scale-110 hover:-translate-y-1 transition-all ease-in-out duration-200 animate-wiggle animate-infinite">
+                        <GrEdit className="" />
+                      </button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="text-center ">
+                  No Listings Available right now : ) Why dont you create some
+                  listings
+                </p>
+              )}
+            </div>
+
+            <button
+              className="absolute right-8 top-2 animate-wiggle animate-infinite"
+              onClick={() => setIsOpen(false)}
+            >
+              <TbArrowBackUp className="text-4xl text-slate-600" />
+            </button>
+          </Modal>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
