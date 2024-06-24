@@ -232,13 +232,33 @@ export default function Profile() {
         icon: "error",
         toast: "true",
         timerProgressBar: "true",
-        title: data,
+        title: error.message,
         showConfirmButton: false,
         timer: 3000,
         color: "red",
         padding: "5px",
         background: "#1a1a1a",
       });
+    }
+  };
+
+  const handleListingDelete = async (listingId) => {
+    try {
+      const res = await fetch(`/api/listing/delete/${listingId}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+
+      setUserListings((prev) =>
+        prev.filter((listing) => listing._id !== listingId)
+      );
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -440,7 +460,10 @@ export default function Profile() {
                       </p>
                     </Link>
                     <div className="space-x-3">
-                      <button className="text-black/80 ring-2 rounded-full ring-red-400 p-1 hover:scale-110 hover:-translate-y-1 transition-all ease-in-out duration-200 animate-wiggle animate-infinite ">
+                      <button
+                        onClick={() => handleListingDelete(listing._id)}
+                        className="text-black/80 ring-2 rounded-full ring-red-400 p-1 hover:scale-110 hover:-translate-y-1 transition-all ease-in-out duration-200 animate-wiggle animate-infinite "
+                      >
                         <IoMdTrash className="" />
                       </button>
                       <button className="text-gray-600 ring-2 rounded-full ring-green-400 p-1 hover:scale-110 hover:-translate-y-1 transition-all ease-in-out duration-200 animate-wiggle animate-infinite">
