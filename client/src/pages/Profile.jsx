@@ -466,9 +466,11 @@ export default function Profile() {
                       >
                         <IoMdTrash className="" />
                       </button>
-                      <button className="text-gray-600 ring-2 rounded-full ring-green-400 p-1 hover:scale-110 hover:-translate-y-1 transition-all ease-in-out duration-200 animate-wiggle animate-infinite">
-                        <GrEdit className="" />
-                      </button>
+                      <Link to={`/update-listing/${listing._id}`}>
+                        <button className="text-gray-600 ring-2 rounded-full ring-green-400 p-1 hover:scale-110 hover:-translate-y-1 transition-all ease-in-out duration-200 animate-wiggle animate-infinite">
+                          <GrEdit className="" />
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 ))
