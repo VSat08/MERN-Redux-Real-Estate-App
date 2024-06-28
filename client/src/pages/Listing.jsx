@@ -1,35 +1,46 @@
 import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
 import { Link, useParams } from "react-router-dom";
-import { FaArrowTrendUp } from "react-icons/fa6";
+import {
+  FaArrowTrendUp,
+  FaFacebookF,
+  FaInstagram,
+  FaXTwitter,
+} from "react-icons/fa6";
 import "ldrs/helix";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSelector } from "react-redux";
 import SwiperCore from "swiper";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
+import { Modal } from "../components/Modal";
+import { TbArrowBackUp } from "react-icons/tb";
+import { IoCopyOutline, IoLogoWhatsapp } from "react-icons/io5";
 
 import {
   FaBath,
   FaBed,
   FaChair,
-  FaMapMarkedAlt,
   FaMapMarkerAlt,
   FaParking,
   FaShare,
 } from "react-icons/fa";
+import Contact from "../components/Contact";
 
 export default function Listing() {
   SwiperCore.use([Navigation]);
+  const [isOpen, setIsOpen] = useState(false);
 
   const params = useParams();
   const { currentUser } = useSelector((state) => state.user);
-
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
-  console.log(listing);
+  const [link, setLink] = useState("");
+  // console.log(listing);
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -52,6 +63,36 @@ export default function Listing() {
     };
     fetchListing();
   }, [params.listingId]);
+
+  const shareToWhatsApp = () => {
+    window.open(
+      `https://api.whatsapp.com/send?text=${encodeURIComponent(link)}`,
+      "_blank"
+    );
+  };
+
+  const shareToTwitter = () => {
+    window.open(
+      `https://twitter.com/intent/tweet?url=${encodeURIComponent(link)}`,
+      "_blank"
+    );
+  };
+
+  const shareToFacebook = () => {
+    window.open(
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        link
+      )}`,
+      "_blank"
+    );
+  };
+
+  const shareToInstagram = () => {
+    // Instagram doesn't have a direct sharing API for web
+    alert(
+      "Instagram sharing is not directly supported. You can copy the link and share it manually on Instagram."
+    );
+  };
   return (
     <main>
       {loading && (
@@ -59,6 +100,7 @@ export default function Listing() {
           <l-helix size="70" speed="5" color="orange"></l-helix>
         </div>
       )}
+
       {error && (
         <div className="flex flex-col items-center justify-center h-screen gap-4">
           <img
@@ -81,111 +123,229 @@ export default function Listing() {
       )}
 
       {listing && !loading && !error && (
-        <div className="absolute -top-14 -z-20 left-0 w-full">
-          <Swiper
-            navigation
-            loop
-            autoplay={{
-              delay: 1500,
-              disableOnInteraction: false,
-            }}
-            modules={[Autoplay, Navigation]}
-          >
-            {listing.imageUrls.map((url, index) => (
-              <SwiperSlide key={index}>
-                <div className="relative h-[450px]">
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background: `url(${url}) center no-repeat`,
-                      backgroundSize: "cover",
-                    }}
-                  ></div>
-                  <div className="absolute inset-0 bg-black/60 "></div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <div className="fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer">
-            <FaShare
-              className="text-slate-500"
+        <>
+          <div className="absolute -top-14 -z-20 left-0 w-full">
+            <Swiper
+              navigation
+              loop
+              autoplay={{
+                delay: 1500,
+                disableOnInteraction: false,
+              }}
+              modules={[Autoplay, Navigation]}
+            >
+              {listing.imageUrls.map((url, index) => (
+                <SwiperSlide key={index}>
+                  <div className="relative h-[450px]">
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: `url(${url}) center no-repeat`,
+                        backgroundSize: "cover",
+                      }}
+                    ></div>
+                    <div className="absolute inset-0 bg-black/60 "></div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            <div
+              className="fixed bottom-24 md:bottom-10 right-[3%] z-50  rounded-full w-14 h-14 md:w-16 md:h-16 flex justify-center items-center bg-orange-400/70  backdrop-blur-sm shadow-xl shadow-orange-500/30  cursor-pointer"
               onClick={() => {
                 navigator.clipboard.writeText(window.location.href);
+                setLink(window.location.href);
                 setCopied(true);
-                setTimeout(() => {
-                  setCopied(false);
-                }, 2000);
               }}
-            />
-          </div>
-
-          {copied && (
-            <p className="fixed top-[23%] right-[5%] z-10 rounded-md bg-slate-100 p-2">
-              Link copied!
-            </p>
-          )}
-
-          <div className="flex flex-col max-w-5xl mx-auto p-3 my-7 relative z-20 -mt-28 sm:-mt-24 gap-6">
-            <div className="space-y-2">
-              <p className=" text-xl sm:text-3xl md:text-4xl lg:text-5xl  text-white font-semibold">
-                {listing.name} - $
-                {listing.offer
-                  ? listing.discountPrice.toLocaleString("en-US")
-                  : listing.regularPrice.toLocaleString("en-US")}
-                {listing.type === "rent" && " / month"}
-              </p>
-              <p className="flex items-center gap-2 text-white  text-sm font-medium">
-                <FaMapMarkerAlt className="text-slate-300" />
-                {listing.address}
-              </p>
+            >
+              <FaShare className="text-white" />
             </div>
-            <div className="flex gap-4 mt-6">
-              <p className="bg-orange-400 w-full max-w-[200px] text-white text-center p-1 rounded-xl">
-                {listing.type === "rent" ? "For Rent" : "For Sale"}
-              </p>
-              {listing.offer && (
-                <p className="bg-black/90 w-full max-w-[200px] text-white text-center p-1 rounded-xl">
-                  ${+listing.regularPrice - +listing.discountPrice} OFF !
+
+            <div className="flex flex-col max-w-5xl mx-auto p-3 my-7 mb-20 md:mb-auto relative z-20 -mt-28 sm:-mt-24 gap-6">
+              <div className="space-y-2">
+                <p className=" text-3xl sm:text-3xl md:text-4xl lg:text-5xl  text-white font-semibold">
+                  {listing.name} - $
+                  {listing.offer
+                    ? listing.discountPrice.toLocaleString("en-US")
+                    : listing.regularPrice.toLocaleString("en-US")}
+                  {listing.type === "rent" && " / month"}
                 </p>
-              )}
+                <p className="flex items-center gap-2 text-white  text-sm font-medium">
+                  <FaMapMarkerAlt className="text-slate-300" />
+                  {listing.address}
+                </p>
+              </div>
+
+              <div className="flex gap-3 px-3  justify-between mb-8 items-start">
+                {/* left div */}
+                <div className="flex flex-col  mx-auto  gap-6 flex-1">
+                  <div className="flex gap-4 mt-6">
+                    <p className="bg-orange-400 w-full max-w-[200px] text-white text-center p-1 rounded-xl">
+                      {listing.type === "rent" ? "For Rent" : "For Sale"}
+                    </p>
+                    {listing.offer && (
+                      <p className="bg-black/90 w-full max-w-[200px] text-white text-center p-1 rounded-xl">
+                        ${+listing.regularPrice - +listing.discountPrice} OFF !
+                      </p>
+                    )}
+                  </div>
+                  <p className="text-slate-800 text-sm ">
+                    <span className="font-semibold text-black">
+                      Description :{" "}
+                    </span>
+                    {listing.description}
+                  </p>
+                  <ul className="text-slate-600 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6">
+                    <li className="flex items-center gap-1 whitespace-nowrap ">
+                      <FaBed className="text-lg" />
+                      {listing.bedrooms > 1
+                        ? `${listing.bedrooms} beds `
+                        : `${listing.bedrooms} bed `}
+                    </li>
+                    <li className="flex items-center gap-1 whitespace-nowrap ">
+                      <FaBath className="text-lg" />
+                      {listing.bathrooms > 1
+                        ? `${listing.bathrooms} baths `
+                        : `${listing.bathrooms} bath `}
+                    </li>
+                    <li className="flex items-center gap-1 whitespace-nowrap ">
+                      <FaParking className="text-lg" />
+                      {listing.parking ? "Parking spot" : "No Parking"}
+                    </li>
+                    <li className="flex items-center gap-1 whitespace-nowrap ">
+                      <FaChair className="text-lg" />
+                      {listing.furnished ? "Furnished" : "Unfurnished"}
+                    </li>
+                  </ul>
+                  {/* images */}
+                  <div className="grid grid-cols-3 gap-3 md:gap-4 md:items-start items-stretch lg:grid-cols-2 ">
+                    {listing.imageUrls.map((imageUrl, index) => (
+                      <img
+                        key={index}
+                        src={imageUrl}
+                        alt="listing iamges"
+                        className="  rounded-lg shadow-md object-cover "
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* right div */}
+                <div className="fixed bottom-0 inset-x-0 md:sticky md:inset-0 md:top-20 flex-row items-center md:items-stretch justify-between flex md:flex-col  mx-auto  gap-6 bg-white  px-8 py-4 md:px-6 md:py-10 md:rounded-3xl shadow-2xl shadow-black/5 md:border-none border-t border-t-gray-300 ">
+                  <p className="md:mt-4 text-xl font-medium">
+                    $
+                    {listing.offer
+                      ? listing.discountPrice.toLocaleString("en-US")
+                      : listing.regularPrice.toLocaleString("en-US")}
+                    {listing.type === "rent" && " / month"}
+                  </p>
+                  {currentUser && listing.userRef !== currentUser._id ? (
+                    <button
+                      className="bg-gradient-to-r from-orange-400 to-yellow-500  rounded-lg p-3 md:px-8 md:py-1.5  text-white font-medium hover:opacity-70"
+                      onClick={() => {
+                        setIsOpen(true);
+                        setContact(true);
+                      }}
+                    >
+                      Contact Owner
+                    </button>
+                  ) : (
+                    <p>Hello Owner!</p>
+                  )}
+                  <p className="text-slate-500 -mt-3 text-sm text-center hidden md:block">
+                    You won't be charged yet
+                  </p>
+                  <div className="justify-between hidden  md:flex">
+                    <p>Total</p>
+                    <p>
+                      {" "}
+                      $
+                      {listing.offer
+                        ? listing.discountPrice.toLocaleString("en-US")
+                        : listing.regularPrice.toLocaleString("en-US")}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p className="text-slate-800 text-sm ">
-              <span className="font-semibold text-black">Description : </span>
-              {listing.description}
-            </p>
-            <ul className="text-slate-700 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6">
-              <li className="flex items-center gap-1 whitespace-nowrap ">
-                <FaBed className="text-lg" />
-                {listing.bedrooms > 1
-                  ? `${listing.bedrooms} beds `
-                  : `${listing.bedrooms} bed `}
-              </li>
-              <li className="flex items-center gap-1 whitespace-nowrap ">
-                <FaBath className="text-lg" />
-                {listing.bathrooms > 1
-                  ? `${listing.bathrooms} baths `
-                  : `${listing.bathrooms} bath `}
-              </li>
-              <li className="flex items-center gap-1 whitespace-nowrap ">
-                <FaParking className="text-lg" />
-                {listing.parking ? "Parking spot" : "No Parking"}
-              </li>
-              <li className="flex items-center gap-1 whitespace-nowrap ">
-                <FaChair className="text-lg" />
-                {listing.furnished ? "Furnished" : "Unfurnished"}
-              </li>
-            </ul>
-            {currentUser && listing.userRef !== currentUser._id && !contact && (
-              <button
-                onClick={() => setContact(true)}
-                className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
-              >
-                Contact landlord
-              </button>
-            )}
-            {contact && <Contact listing={listing} />}
           </div>
-        </div>
+
+          {/* for contact */}
+          <AnimatePresence>
+            {isOpen && (
+              <Modal>
+                {/* <p>Modal Content</p> */}
+                {contact ? (
+                  <Contact listing={listing} />
+                ) : (
+                  <div className="flex items-center justify-center my-4 ">
+                    <l-helix size="40" speed="5" color="orange"></l-helix>
+                  </div>
+                )}
+
+                <button
+                  className="absolute right-8 top-2 animate-wiggle animate-infinite"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <TbArrowBackUp className="text-4xl text-slate-600" />
+                </button>
+              </Modal>
+            )}
+          </AnimatePresence>
+
+          {/* for copy */}
+          <AnimatePresence>
+            {copied && (
+              <Modal>
+                <div className="flex flex-col  gap-4">
+                  <h1 className="text-2xl font-bold text-center">
+                    Link copied !
+                  </h1>
+
+                  <div className="flex items-center shadow-2xl gap-3 justify-between bg-slate-50 rounded-md border-2  ">
+                    <p className="truncate  p-2">{link}</p>
+                    <p
+                      className="bg-slate-100 p-2 rounded-e-md border-s-2 cursor-pointer"
+                      onClick={() => {
+                        navigator.clipboard.writeText(window.location.href);
+                      }}
+                    >
+                      <IoCopyOutline />
+                    </p>
+                  </div>
+
+                  <p className="text-lg font-semibold  text-center mt-2">
+                    Share with
+                  </p>
+                  <ul className="flex list-none gap-10 items-center mx-auto ">
+                    <li className="cursor-pointer" onClick={shareToWhatsApp}>
+                      <IoLogoWhatsapp className="text-3xl text-green-500" />
+                    </li>
+                    <li className="cursor-pointer" onClick={shareToTwitter}>
+                      <FaXTwitter className="text-3xl text-black" />
+                    </li>
+                    <li className="cursor-pointer" onClick={shareToFacebook}>
+                      <FaFacebookF className="text-3xl text-blue-500" />
+                    </li>
+                    <li className="cursor-pointer" onClick={shareToInstagram}>
+                      <img
+                        src="https://freelogopng.com/images/all_img/1658586823instagram-logo-transparent.png"
+                        className="w-8 h-8"
+                      />
+                    </li>
+                  </ul>
+                </div>
+
+                <button
+                  className="absolute right-8 top-2 animate-wiggle animate-infinite"
+                  onClick={() => setCopied(false)}
+                >
+                  <TbArrowBackUp className="text-4xl text-slate-600" />
+                </button>
+              </Modal>
+            )}
+          </AnimatePresence>
+        </>
       )}
     </main>
   );
