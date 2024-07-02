@@ -277,7 +277,7 @@ export default function Profile() {
       </div>
       <div className="p-4 flex w-full mx-auto  gap-1 flex-wrap justify-between">
         {/* left columns */}
-        <div className="bg-[#ebebeb] md:bg-[rgba(255,255,255,.3)] md:backdrop-blur-sm w-full md:w-1/3  flex flex-col py-4 rounded-3xl  md:shadow-2xl lg:w-1/3 md:shadow-gray-300 ">
+        <div className="bg-white/75 md:bg-[rgba(255,255,255,.3)] backdrop-blur-sm w-full md:w-1/3  flex flex-col py-4 rounded-3xl  md:shadow-2xl lg:w-1/3 md:shadow-gray-300 ">
           <div className="relative rounded-full h-24 w-24 self-center mt-2 group">
             <div className="absolute inset-0 h-full w-full  z-10  rounded-full flex group overflow-hidden ">
               <HiOutlineUpload className="w-12 h-12 font- m-auto group-hover:text-white translate-y-16 group-hover:translate-y-0 opacity-0 group-hover:opacity-100  transition-all duration-200 ease-out " />

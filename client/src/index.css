@@ -3,10 +3,14 @@
 @tailwind utilities;
 
 
-*{
+* {
      font-family: "Montserrat", sans-serif;
 }
 
-body{
-     background: #ebebeb;
+body {
+     background: linear-gradient(45deg, #ebedf4, #E2E2E2);
+     background-size: cover;
+     background-size: 400% 400%;
+     background-repeat: no-repeat;
+
 }
