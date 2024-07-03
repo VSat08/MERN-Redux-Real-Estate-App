@@ -403,7 +403,7 @@ export default function UpdateListing() {
             className=" bg-gradient-to-r from-gray-900 via-black to-gray-900 p-2.5 px-4 rounded-xl cursor-pointer font-medium border-none text-white shadow-xl shadow-black/20  text-sm md:text-base flex items-center gap-1 justify-center  disabled:opacity-70"
           >
             <IoMdAddCircle />
-            {loading ? "Creating..." : "Update Listing"}
+            {loading ? "Updating..." : "Update Listing"}
           </button>
         </div>
       </form>

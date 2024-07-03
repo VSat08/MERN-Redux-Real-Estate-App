@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import "ldrs/helix";
+import ListingItem from "../components/ListingItem";
 
 export default function Search() {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ export default function Search() {
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
 
-  // console.log(listings);
+  console.log(listings);
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get("searchTerm");
@@ -112,9 +114,9 @@ export default function Search() {
   };
 
   return (
-    <div className=" p-4 flex flex-col md:flex-row gap-6  max-w-7xl mx-auto">
+    <div className=" p-4 flex flex-col md:items-start md:flex-row gap-4  max-w-7xl mx-auto">
       {/* left */}
-      <div className=" p-4 md:p-7 bg-gradient-to-br from-white/40 to-slate-50/20  rounded-3xl shadow-2xl shadow-black/10  ">
+      <div className=" p-4 md:p-5 bg-gradient-to-br from-white/40 to-slate-50/20  rounded-3xl shadow-2xl shadow-black/10  md:max-w-[340px]">
         <form
           onSubmit={handleSubmit}
           className={`flex flex-col gap-4 ${formOpen ? "" : "h-14"} ${
@@ -251,10 +253,43 @@ export default function Search() {
       </div>
 
       {/* right */}
-      <div className="">
-        <h1 className="text-4-xl font-extrabold text-slate-800 text-2xl sm:text-3xl md:text-4xl lg:text-4xl">
+      <div
+        className="flex-1
+      
+        "
+      >
+        <h1 className="text-4-xl font-extrabold text-slate-800 text-2xl sm:text-3xl md:text-4xl lg:text-4xl md:text-left text-center">
           Listing Results
         </h1>
+
+        <div className="px-3 py-7 flex flex-wrap gap-4 ">
+          {/* loading Condition */}
+          {loading && (
+            <div className=" flex items-center justify-center h-96  w-full">
+              <l-helix size="70" speed="5" color="orange"></l-helix>
+            </div>
+          )}
+
+          {/* error condition */}
+          {!loading && listings.length === 0 && (
+            <div className="w-full">
+              <img
+                src="https://i.pinimg.com/564x/37/b5/55/37b5555ed3574d8c35a62f8244a9eed7.jpg"
+                className="h-28 w-28 rounded-full mix-blend-multiply mx-auto"
+                alt="error"
+              />
+              <p className="text-xl text-center text-slate-700 font-semibold ">
+                No Listing Found!
+              </p>
+            </div>
+          )}
+
+          {!loading &&
+            listings &&
+            listings.map((listing) => (
+              <ListingItem key={listing._id} listing={listing} />
+            ))}
+        </div>
       </div>
     </div>
   );

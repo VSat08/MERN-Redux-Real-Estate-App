@@ -124,7 +124,7 @@ export default function Listing() {
 
       {listing && !loading && !error && (
         <>
-          <div className="absolute -top-14 -z-20 left-0 w-full">
+          <div className="absolute -top-10 -z-20 left-0 w-full">
             <Swiper
               navigation
               loop
@@ -161,7 +161,7 @@ export default function Listing() {
               <FaShare className="text-white" />
             </div>
 
-            <div className="flex flex-col max-w-5xl mx-auto p-3 my-7 mb-20 md:mb-auto relative z-20 -mt-28 sm:-mt-24 gap-6">
+            <div className="flex flex-col max-w-5xl mx-auto p-3 my-7 mb-20 md:mb-auto relative z-20 -mt-32 sm:-mt-28 gap-12">
               <div className="space-y-2">
                 <p className=" text-3xl sm:text-3xl md:text-4xl lg:text-5xl  text-white font-semibold">
                   {listing.name} - $
