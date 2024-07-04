@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Logo from "/Logo.png";
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
@@ -31,10 +32,11 @@ export default function Header() {
     <header className="  px-2.5 md:px-4">
       <div className="flex justify-between items-center max-w-6xl mx-auto py-3 px-6 bg-[rgba(255,255,255,.3)] backdrop-blur-sm rounded-full my-3">
         <Link to="/">
-          <h1 className="font-bold text-sm sm:text-xl flex-wrap">
+          {/* <h1 className="font-bold text-sm sm:text-xl flex-wrap">
             <span className="text-red-400">Real</span>
             <span>Estate App</span>
-          </h1>
+          </h1> */}
+          <img src={Logo} alt="logo" className="w-32" />
         </Link>
 
         <form
@@ -53,7 +55,7 @@ export default function Header() {
           </button>
         </form>
 
-        <ul className="flex gap-4 items-center">
+        <ul className="flex gap-4 items-center font-semibold ">
           <Link to="/">
             <li className="hidden sm:inline">Home</li>
           </Link>
