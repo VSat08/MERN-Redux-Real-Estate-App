@@ -15,6 +15,7 @@ import { FaRegThumbsUp } from "react-icons/fa";
 import { GrEdit, GrList } from "react-icons/gr";
 import { IoMdTrash } from "react-icons/io";
 import { TbArrowBackUp } from "react-icons/tb";
+import "ldrs/helix";
 
 import Swal from "sweetalert2";
 
@@ -43,6 +44,7 @@ import { Modal } from "../components/Modal";
 
 export default function Profile() {
   const [isOpen, setIsOpen] = useState(false);
+  const [loadingUserListing, setLoadingUserListing] = useState(false);
 
   const fileRef = useRef(null);
   const [file, setFile] = useState(undefined);
@@ -205,10 +207,12 @@ export default function Profile() {
     setIsOpen(true);
     try {
       setShowListingsError(false);
+      setLoadingUserListing(true);
       const res = await fetch(`/api/user/listings/${currentUser._id}`);
       const data = await res.json();
       if (data.success === false) {
         setShowListingsError(true);
+        setLoadingUserListing(false);
         Swal.fire({
           position: "top",
           icon: "error",
@@ -225,8 +229,10 @@ export default function Profile() {
       }
 
       setUserListings(data);
+      setLoadingUserListing(false);
     } catch (error) {
       setShowListingsError(true);
+      setLoadingUserListing(false);
       Swal.fire({
         position: "top",
         icon: "error",
@@ -438,7 +444,16 @@ export default function Profile() {
             </h2>
             {/* <p>Modal Content</p> */}
             <div className="overflow-y-auto max-h-60 space-y-2">
-              {userListings && userListings.length > 0 ? (
+              {/* loading condition */}
+              {loadingUserListing && (
+                <div className=" flex items-center justify-center  w-full">
+                  <l-helix size="70" speed="5" color="orange"></l-helix>
+                </div>
+              )}
+              {/* listing display */}
+              {userListings &&
+                !loadingUserListing &&
+                userListings.length > 0 &&
                 userListings.map((listing) => (
                   <div
                     key={listing._id}
@@ -473,8 +488,9 @@ export default function Profile() {
                       </Link>
                     </div>
                   </div>
-                ))
-              ) : (
+                ))}
+
+              {!loadingUserListing && userListings.length === 0 && (
                 <p className="text-center ">
                   No Listings Available right now : ) Why dont you create some
                   listings
