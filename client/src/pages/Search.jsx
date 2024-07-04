@@ -19,8 +19,8 @@ export default function Search() {
 
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
+  const [showMore, setShowMore] = useState(false);
 
-  console.log(listings);
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get("searchTerm");
@@ -53,10 +53,17 @@ export default function Search() {
 
     const fetchListings = async () => {
       setLoading(true);
+      setShowMore(false);
 
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
+
+      if (data.length > 8) {
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
 
       setListings(data);
       setLoading(false);
@@ -111,6 +118,24 @@ export default function Search() {
     const searchQuery = urlParams.toString();
 
     navigate(`/search?${searchQuery}`);
+  };
+
+  const onShowMoreClick = async () => {
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);
+
+    urlParams.set("startIndex", startIndex);
+    const searchQuery = urlParams.toString();
+
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
+
+    const data = await res.json();
+
+    if (data.length < 9) {
+      setShowMore(false);
+    }
+    setListings([...listings, ...data]);
   };
 
   return (
@@ -261,7 +286,6 @@ export default function Search() {
         <h1 className="text-4-xl font-extrabold text-slate-800 text-2xl sm:text-3xl md:text-4xl lg:text-4xl md:text-left text-center">
           Listing Results
         </h1>
-
         <div className="px-3 py-7 flex flex-wrap gap-4 ">
           {/* loading Condition */}
           {loading && (
@@ -290,6 +314,17 @@ export default function Search() {
               <ListingItem key={listing._id} listing={listing} />
             ))}
         </div>
+
+        {showMore && (
+          <button
+            onClick={onShowMoreClick}
+            className="bg-black text-white font-medium p-3 rounded-xl mx-auto block w-full md:w-auto hover:opacity-85
+            hover:translate-y-0.5
+            transition-all duration-200 ease-in-out  "
+          >
+            Show More
+          </button>
+        )}
       </div>
     </div>
   );
