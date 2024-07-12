@@ -6,7 +6,7 @@ import { IoBed } from "react-icons/io5";
 
 export default function ListingItem({ listing }) {
   return (
-    <div className="bg-white shadow-md rounded-3xl hover:shadow-2xl hover:-translate-y-2  transition-all duration-300 ease-in-out overflow-hidden w-full sm:w-[280px]   md:w-[270px]">
+    <div className="bg-white shadow-md rounded-3xl hover:shadow-2xl hover:-translate-y-2  transition-all duration-300 ease-in-out overflow-hidden w-full sm:w-[280px]   md:w-[270px] mx-auto lg:mx-0">
       <Link to={`/listing/${listing._id}`}>
         <img
           src={listing.imageUrls[0]}
