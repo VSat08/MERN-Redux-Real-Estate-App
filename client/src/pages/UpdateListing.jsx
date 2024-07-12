@@ -185,7 +185,7 @@ export default function UpdateListing() {
   };
 
   return (
-    <main className="px-4 py-4 md:px-20 lg:px-28 mx-auto">
+    <main className="px-4 py-4 md:px-20 lg:px-28 mx-auto mt-28">
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-center my-7 animate-fade-up animate-once animate-ease-out">
         Wanna Update
         <span className="text-2xl md:text-4xl lg:text-5xl font-extrabold p md:my-2 block  ">

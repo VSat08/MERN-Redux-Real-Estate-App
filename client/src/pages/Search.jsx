@@ -139,7 +139,7 @@ export default function Search() {
   };
 
   return (
-    <div className=" p-4 flex flex-col md:items-start md:flex-row gap-4  max-w-7xl mx-auto">
+    <div className=" p-4 flex flex-col md:items-start md:flex-row gap-4  max-w-7xl mx-auto mt-28">
       {/* left */}
       <div className=" p-4 md:p-5 bg-gradient-to-br from-white/40 to-slate-50/20  rounded-3xl shadow-2xl shadow-black/10  md:max-w-[340px]">
         <form

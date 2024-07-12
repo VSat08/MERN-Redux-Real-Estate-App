@@ -269,8 +269,8 @@ export default function Profile() {
   };
 
   return (
-    <div className="w-full px-8 mx-auto  md:max-w-6xl">
-      <div className="absolute -top-14 -z-10 left-0 w-full">
+    <div className="w-full px-8 mx-auto  md:max-w-6xl mt-28">
+      <div className="absolute -top-10 -z-10 left-0 w-full">
         <img
           src="https://img.freepik.com/premium-vector/set-indian-men-women-avatars-smiling-male-female-cartoon-characters-collection-horizontal-portrait_48369-25012.jpg?w=1480"
           alt=""

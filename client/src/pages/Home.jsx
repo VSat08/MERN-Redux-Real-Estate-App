@@ -11,7 +11,7 @@ import { GrDiamond, GrYoutube } from "react-icons/gr";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ListingItem from "../components/ListingItem";
 import { PiInstagramLogoBold, PiFacebookLogo } from "react-icons/pi";
 import { RiLinkedinFill } from "react-icons/ri";
@@ -21,6 +21,7 @@ import { FiYoutube } from "react-icons/fi";
 import SecondaryFooter from "../components/SecondaryFooter";
 
 export default function Home() {
+  const navigate = useNavigate();
   const [offerListings, setOfferListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
   const [saleListings, setSaleListings] = useState([]);
@@ -64,7 +65,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="">
+    <div className="mt-28">
       {/* top */}
       <div className="flex flex-col gap-6 justify-center max-w-6xl mx-auto pt-32 pb-8 px-3 text-center relative  ">
         <img
@@ -91,25 +92,31 @@ export default function Home() {
           expert support are always available.
         </div>
 
-        <div className=" w-full ">
+        <div className=" w-full  ">
           {/* searchbox and button */}
-          <div className="flex items-center gap-2 justify-center ">
+          <div className="flex items-center gap-2 justify-center  ">
             {/* searchbox */}
-            <div className="flex items-center gap-2 bg-white/30 w-72 md:w-96 rounded-3xl py-3 px-4 border border-slate-100 shadow-2xl">
-              <BiSearchAlt className="text-xl" />
-              <input
-                type="text"
-                className=" bg-transparent w-full  text-sm p-1 outline-none"
-                value={search}
-                onChange={(e) => setsearch(e.target.value)}
-                placeholder="search your comfort zone"
-              />
-              <VscSettings className="text-xl" />
-            </div>
+
+            <form
+              id="homepage-search"
+              onSubmit={() => navigate(`/search?searchTerm=${search}`)}
+            >
+              <div className="flex items-center gap-2 bg-white/30 md:w-96 rounded-3xl py-2 sm:py-2.5 md:py-3 px-4 border  border-slate-100 shadow-2xl ">
+                <BiSearchAlt className="text-xl" />
+                <input
+                  type="text"
+                  className=" bg-transparent w-full  text-xs sm:text-sm p-0 outline-none"
+                  value={search}
+                  onChange={(e) => setsearch(e.target.value)}
+                  placeholder="search your comfort zone"
+                />
+                <VscSettings className="text-xl" />
+              </div>
+            </form>
 
             <Link
               to={`/search?searchTerm=${search}`}
-              className="bg-black/90 text-neutral-100 font-medium rounded-full px-8 py-3 text-sm"
+              className="bg-black/90 text-neutral-100 font-light md:font-medium rounded-full text-xs py-3 sm:text-sm px-4 sm:px-6 md:px-8"
             >
               Explore
             </Link>

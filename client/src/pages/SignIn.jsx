@@ -46,7 +46,7 @@ export default function SignIn() {
     }
   };
   return (
-    <div className="py-4 px-12 md:px-16 max-w-lg mx-auto">
+    <div className="py-4 px-12 md:px-16 max-w-lg mx-auto mt-28">
       <h1
         className="
         leading-snug

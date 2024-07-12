@@ -171,7 +171,7 @@ export default function CreateListing() {
   };
 
   return (
-    <main className="px-4 py-4 md:px-20 lg:px-28 mx-auto">
+    <main className="px-4 py-4 md:px-20 lg:px-28 mx-auto mt-28">
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center my-7 animate-fade-up animate-once animate-ease-out">
         Lets create a
         <span className="text-5xl ml-32 md:text-6xl lg:text-7xl font-extrabold p-2 my-1 md:my-2 block bg-gradient-to-r from-yellow-400 via-orange-500  to bg-red-500   text-transparent bg-clip-text  ">
