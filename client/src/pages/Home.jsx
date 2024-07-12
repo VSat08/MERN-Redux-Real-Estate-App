@@ -25,6 +25,8 @@ export default function Home() {
   const [rentListings, setRentListings] = useState([]);
   const [saleListings, setSaleListings] = useState([]);
 
+  const [search, setsearch] = useState("");
+
   useEffect(() => {
     const fetchOfferListings = async () => {
       try {
@@ -60,6 +62,7 @@ export default function Home() {
 
     fetchOfferListings();
   }, []);
+
   return (
     <div className="">
       {/* top */}
@@ -74,7 +77,7 @@ export default function Home() {
           src="https://raw.githubusercontent.com/VSat08/image-utils/main/3d-rendering-isometric-house%20(2).png"
           className=" w-28 md:w-60 lg:w-80  absolute top-36  md:top-28 right-0 -z-10 "
         />
-        <h1 className="font-extrabold text-4xl lg:text-6xl text-black/85">
+        <h1 className="font-extrabold text-4xl md:text-5xl lg:text-7xl text-black/85">
           Find your next{" "}
           <span className="text-transparent bg-gradient-to-r from-[#FC501E] to-[#FBA930] bg-clip-text">
             perfect
@@ -97,14 +100,19 @@ export default function Home() {
               <input
                 type="text"
                 className=" bg-transparent w-full  text-sm p-1 outline-none"
+                value={search}
+                onChange={(e) => setsearch(e.target.value)}
                 placeholder="search your comfort zone"
               />
               <VscSettings className="text-xl" />
             </div>
 
-            <div className="bg-black/90 text-neutral-100 font-medium rounded-full px-8 py-3 text-sm">
+            <Link
+              to={`/search?searchTerm=${search}`}
+              className="bg-black/90 text-neutral-100 font-medium rounded-full px-8 py-3 text-sm"
+            >
               Explore
-            </div>
+            </Link>
           </div>
         </div>
       </div>
