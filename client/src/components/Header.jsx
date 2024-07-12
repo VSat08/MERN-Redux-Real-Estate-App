@@ -11,7 +11,6 @@ export default function Header() {
   const [showHeaderSearch, setShowHeaderSearch] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -55,7 +54,7 @@ export default function Header() {
 
   return (
     <header className="  px-2.5 md:px-4 bg-white fixed top-0 inset-x-0 w-full z-[100] ">
-      <div className="flex justify-between items-center max-w-6xl mx-auto py-3 min-h-[4.5rem] px-6  my-3  relative  ">
+      <div className="flex justify-between items-center max-w-6xl mx-auto py-3 min-h-[4.5rem] md:px-6   my-3  relative  ">
         <Link to="/">
           <img src={Logo} alt="logo" className="w-24 sm:w-32 hidden sm:block" />
         </Link>
@@ -159,7 +158,9 @@ export default function Header() {
               </div>
             </div>
           ) : (
-            <li className="text-xs sm:text-base">Sign in</li>
+            <Link to="/sign-in">
+              <li className="text-sm sm:text-base text-white bg-black/90 rounded-full p-2 px-4">Sign in</li>
+            </Link>
           )}
           {/* </Link> */}
         </ul>
