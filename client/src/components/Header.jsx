@@ -11,7 +11,6 @@ export default function Header() {
   const [showHeaderSearch, setShowHeaderSearch] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  console.log(dropdownOpen);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -58,23 +57,23 @@ export default function Header() {
     <header className="  px-2.5 md:px-4 bg-white fixed top-0 inset-x-0 w-full z-[100] ">
       <div className="flex justify-between items-center max-w-6xl mx-auto py-3 min-h-[4.5rem] px-6  my-3  relative  ">
         <Link to="/">
-          <img src={Logo} alt="logo" className="w-24 sm:w-32" />
+          <img src={Logo} alt="logo" className="w-24 sm:w-32 hidden sm:block" />
         </Link>
 
         {showHeaderSearch && (
           <form
             onSubmit={handleSubmit}
-            className="bg-slate-50/40 p-1.5 px-3 md:px-4 rounded-3xl flex justify-between items-center border  border-slate-100 shadow-2xl "
+            className="bg-slate-50/40 p-2 px-4 md:px-6 rounded-3xl flex justify-between items-center border  border-slate-100 shadow-2xl "
           >
             <input
               type="text"
-              placeholder="search..."
+              placeholder="search your comfrot zone"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-transparent focus:outline-none w-24 sm:w-48 md:w-64 px-2 py-1 text-xs sm:text-base  text-neutral-700 "
+              className="bg-transparent focus:outline-none w-full sm:w-48 md:w-64 px-2 py-1 text-xs sm:text-sm  text-neutral-700 placeholder:text-gray-400 placeholder:font-light"
             />
             <button>
-              <BiSearchAlt className="text-slate-600" />
+              <BiSearchAlt className="text-slate-600 text-xl" />
             </button>
           </form>
         )}
