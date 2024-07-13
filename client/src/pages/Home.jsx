@@ -62,9 +62,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="mt-28">
+    <div className="mt-28 ">
       {/* top */}
-      <div className="flex flex-col gap-6 justify-center max-w-6xl mx-auto pt-32 pb-8 px-3 text-center relative  ">
+      <div className="flex flex-col gap-6 justify-center max-w-6xl mx-auto pt-32 pb-8 px-6 md:px-4 lg:px-3  text-center relative ">
         <img
           alt="floating house 1"
           src="https://raw.githubusercontent.com/VSat08/image-utils/main/3d-rendering-isometric-house.png"
@@ -98,7 +98,7 @@ export default function Home() {
               id="homepage-search"
               onSubmit={() => navigate(`/search?searchTerm=${search}`)}
             >
-              <div className="flex items-center gap-2 bg-white/30 md:w-96 rounded-3xl py-2 sm:py-2.5 md:py-3 px-4 border  border-slate-100 shadow-2xl ">
+              <div className="flex items-center gap-2 bg-white/30 md:w-96 rounded-3xl py-2 sm:py-2.5 md:py-3 px-4 border  border-gray-300 shadow-2xl ">
                 <BiSearchAlt className="text-xl" />
                 <input
                   type="text"
@@ -148,16 +148,16 @@ export default function Home() {
       </div>
 
       {/* listing results for offer, sale and rent */}
-      <div className="max-w-6xl mx-auto p-3 flex flex-col gap-8 my-10">
+      <div className="max-w-6xl mx-auto px-6 md:px-4 lg:px-3  flex flex-col gap-8 my-10 ">
         {offerListings && offerListings.length > 0 && (
           <div>
             <div className="flex items-center justify-between my-6 ">
-              <h2 className="text-2xl md:text-4xl font-semibold md:font-bold text-black/85">
-                Recent Offers !
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-black/85 tracking-tight">
+                Hot Deals
               </h2>
               <Link
                 to={"/search?offer=true"}
-                className="flex items-center gap-1 rounded-full border border-black p-2 px-4 text-sm w-fit group"
+                className="flex items-center gap-1 rounded-full border border-black p-2 px-2 sm:px-4 text-xs sm:text-sm w-fit group"
               >
                 Check more{" "}
                 <PiTrendUpBold className="group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-200 ease-in-out" />
@@ -174,12 +174,12 @@ export default function Home() {
         {rentListings && rentListings.length > 0 && (
           <div>
             <div className="flex items-center justify-between my-6 ">
-              <h2 className="text-2xl md:text-4xl font-semibold md:font-bold text-black/85">
-                Got For Rent !
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-black/85 tracking-tight">
+                Rental Gems
               </h2>
               <Link
                 to={"/search?type=rent"}
-                className="flex items-center gap-1 rounded-full border border-black p-2 px-4 text-sm w-fit group"
+                className="flex items-center gap-1 rounded-full border border-black p-2 px-2 sm:px-4 text-xs sm:text-sm w-fit group"
               >
                 Check more{" "}
                 <PiTrendUpBold className="group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-200 ease-in-out" />
@@ -196,12 +196,12 @@ export default function Home() {
         {saleListings && saleListings.length > 0 && (
           <div>
             <div className="flex items-center justify-between my-6 ">
-              <h2 className="text-2xl md:text-4xl font-semibold md:font-bold text-black/85">
-                Places To be Sold!
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-black/85 tracking-tight">
+                Buy Now
               </h2>
               <Link
                 to={"/search?type=sale"}
-                className="flex items-center gap-1 rounded-full border border-black p-2 px-4 text-sm w-fit group"
+                className="flex items-center gap-1 rounded-full border border-black p-2 px-2 sm:px-4 text-xs sm:text-sm w-fit group"
               >
                 Check more{" "}
                 <PiTrendUpBold className="group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-200 ease-in-out" />
@@ -217,7 +217,7 @@ export default function Home() {
       </div>
 
       {/* Advertisment */}
-      <div className="max-w-6xl mx-auto p-3 py-28 flex flex-col md:flex-row items-center ">
+      <div className="max-w-6xl mx-auto px-6 md:px-4 lg:px-3  py-28 flex flex-col md:flex-row items-center ">
         <div className="relative ">
           <img
             alt="floating house 3"
@@ -267,7 +267,7 @@ export default function Home() {
       </div>
 
       {/* why adobe ally cards */}
-      <div className="max-w-6xl mx-auto p-3 flex flex-col gap-12 my-8">
+      <div className="max-w-6xl mx-auto px-6 md:px-4 lg:px-3  flex flex-col gap-12 my-8">
         <h1 className="  sm:text-xl md:text-2xl font-semibold text-gray-800 text-center md:text-left">
           Your All-in-One Home Finding Solution <br />{" "}
           <span className=" text-4xl sm:text-5xl md:text-7xl font-extrabold text-black/90">
@@ -370,8 +370,8 @@ export default function Home() {
           minHeight: "100vh", // Adjust this value as needed
         }}
       >
-        <div className="max-w-7xl mx-auto p-3  pt-32 md:pt-56 lg:pt-32 flex flex-col  gap-12 md:gap-28 lg:gap-32">
-          <h1 className="  sm:text-xl md:text-2xl font-semibold text-white text-center md:text-left">
+        <div className="max-w-7xl mx-auto p-3  pt-32 md:pt-56 lg:pt-32 flex flex-col  gap-12 md:gap-28 lg:gap-32 px-6 md:px-4 lg:px-3 ">
+          <h1 className=" text-3xl sm:text-xl md:text-2xl font-semibold text-white text-center md:text-left">
             People say <br />{" "}
             <span className=" text-4xl sm:text-5xl md:text-7xl font-extrabold ">
               {" "}
@@ -379,16 +379,16 @@ export default function Home() {
             </span>
           </h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center  justify-items-center ">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-8 items-center  justify-items-center ">
             {/* card one */}
             <div className=" rounded-[1.7rem] border-2 border-[#FF8517] relative max-w-xs sm:max-w-md lg:scale-95">
               <img
                 src="https://raw.githubusercontent.com/VSat08/image-utils/5088eed69fae0597131204f694a58d70e09e694a/quote.svg"
                 alt="quote"
-                className="absolute -top-14 md:-top-20 w-24 md:w-32 left-0 z-10"
+                className="absolute -top-14 md:-top-20 w-20 md:w-32 left-0 z-10"
               />
-              <div className="flex flex-col gap-4 rounded-3xl bg-transparent text-slate-50/90 backdrop-blur-sm border-4 border-white/75 p-6 lg:p-12  -translate-x-2 -translate-y-2 ">
-                <p className=" text-xs sm:text-base">
+              <div className="flex flex-col gap-4 rounded-3xl bg-transparent text-slate-50/90 backdrop-blur-sm border-2 border-white/75 p-6 lg:p-12  -translate-x-2 -translate-y-2 ">
+                <p className="text-xs sm:text-sm md:text-base">
                   Finding my dream home was a breeze with AbodeAlly. Their
                   search tools and expert agents made the entire process smooth
                   and enjoyable.
@@ -412,10 +412,10 @@ export default function Home() {
               <img
                 src="https://raw.githubusercontent.com/VSat08/image-utils/5088eed69fae0597131204f694a58d70e09e694a/quote.svg"
                 alt="quote"
-                className="absolute -top-14 md:-top-20 w-24 md:w-32 left-0 z-10"
+                className="absolute -top-14 md:-top-20 w-20 md:w-32 left-0 z-10"
               />
-              <div className="flex flex-col gap-4 rounded-3xl bg-white/25 backdrop-blur-[3px] border-4 border-white/75 p-6 lg:p-12  -translate-x-2 -translate-y-2 ">
-                <p className=" text-xs sm:text-base">
+              <div className="flex flex-col gap-4 rounded-3xl bg-white/25 backdrop-blur-[3px] border-2 border-white/75 p-6 lg:p-12  -translate-x-2 -translate-y-2 ">
+                <p className=" text-xs sm:text-sm md:text-base">
                   Finding my dream home was a breeze with AbodeAlly. Their
                   search tools and expert agents made the entire process smooth
                   and enjoyable.
@@ -439,10 +439,10 @@ export default function Home() {
               <img
                 src="https://raw.githubusercontent.com/VSat08/image-utils/5088eed69fae0597131204f694a58d70e09e694a/quote.svg"
                 alt="quote"
-                className="absolute -top-14 md:-top-20 w-24 md:w-32 left-0 z-10"
+                className="absolute -top-14 md:-top-20 w-20 md:w-32 left-0 z-10"
               />
-              <div className="lex flex-col gap-4 rounded-3xl bg-transparent text-slate-50/90 backdrop-blur-sm border-4 border-white/75 p-6 lg:p-12  -translate-x-2 -translate-y-2 ">
-                <p className=" text-xs sm:text-base">
+              <div className="lex flex-col gap-4 rounded-3xl bg-transparent text-slate-50/90 backdrop-blur-sm border-2 border-white/75 p-6 lg:p-12  -translate-x-2 -translate-y-2 ">
+                <p className=" text-xs sm:text-sm md:text-base">
                   Finding my dream home was a breeze with AbodeAlly. Their
                   search tools and expert agents made the entire process smooth
                   and enjoyable.
@@ -467,7 +467,8 @@ export default function Home() {
       {/* footer */}
       <PrimaryFooter />
       {/* secondary footer */}
-      <hr className="bg-gray-300 h-0.5 w-full" />
+
+      <hr className="bg-gray-300  w-full" />
       <SecondaryFooter />
 
       {/* bottom nav */}

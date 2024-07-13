@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Logo from "/Logo.png";
 import { BiSearchAlt } from "react-icons/bi";
+import { HiOutlineLocationMarker } from "react-icons/hi";
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
@@ -54,7 +55,7 @@ export default function Header() {
 
   return (
     <header className="  px-2.5 md:px-4 bg-white fixed top-0 inset-x-0 w-full z-[100] ">
-      <div className="flex justify-between items-center max-w-6xl mx-auto py-3 min-h-[4.5rem] md:px-6   my-3  relative  ">
+      <div className="flex justify-between items-center max-w-6xl mx-auto py-3 min-h-[4.5rem] md:px-6  px-3 my-3  relative  ">
         <Link to="/">
           <img src={Logo} alt="logo" className="w-24 sm:w-32 hidden sm:block" />
         </Link>
@@ -77,7 +78,9 @@ export default function Header() {
           </form>
         )}
 
-        <ul className="flex gap-4 items-center font-semibold ">
+        <ul className="flex gap-1 sm:gap-2  items-center font-semibold ">
+          <HiOutlineLocationMarker className="text-2xl" />
+
           <Link to="/">
             <li className="hidden sm:inline">Home</li>
           </Link>
@@ -85,14 +88,14 @@ export default function Header() {
           {/* <Link to="/profile"> */}
           {currentUser ? (
             <div className="relative bg-gray-50 border border-slate-200 rounded-full  p-2 px-3">
-              <div className="flex items-center gap-1 ">
+              <div className="flex items-center gap-2 ">
                 <CgMenuRightAlt
                   className="text-2xl cursor-pointer"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                 />
 
-                <div className="flex items-start gap-1">
-                  <p className="text-xs text-gray-600 py-2 w-16 truncate ">
+                <div className="flex items-start gap-0">
+                  <p className="text-xs text-gray-800 py-2 w-16 truncate ">
                     Hi {currentUser.username} !
                   </p>
                   <img
@@ -104,7 +107,7 @@ export default function Header() {
               </div>
               {/* dropdown */}
               <div
-                className={`p-4 flex flex-col gap-3 rounded-xl bg-gradient-to-br from-white to-white/50 w-full backdrop-blur-md absolute top-14 z-10 shadow-2xl transition-all duration-500 ${
+                className={`p-4 flex flex-col gap-3 border-2 border-gray-50 rounded-xl bg-gradient-to-br from-white to-white/50 w-full backdrop-blur-md absolute top-14 z-10 shadow-2xl shadow-black/40 transition-all duration-500 ${
                   dropdownOpen
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 pointer-events-none -translate-y-2"
@@ -116,13 +119,14 @@ export default function Header() {
                 >
                   Messages
                 </p>
+
                 <p
                   onClick={handleDropdownItemClick}
                   className="cursor-pointer text-xs sm:text-sm font-medium text-gray-800"
                 >
                   My Listings
                 </p>
-
+                <hr className="w-full " />
                 <Link
                   to="/profile"
                   className="text-xs sm:text-sm font-medium text-gray-800"
@@ -136,6 +140,7 @@ export default function Header() {
                 >
                   About
                 </p>
+                <hr className="w-full " />
                 <p
                   onClick={handleDropdownItemClick}
                   className="cursor-pointer text-xs sm:text-sm font-medium text-gray-800"
@@ -159,7 +164,9 @@ export default function Header() {
             </div>
           ) : (
             <Link to="/sign-in">
-              <li className="text-sm sm:text-base text-white bg-black/90 rounded-full p-2 px-4">Sign in</li>
+              <li className="text-sm sm:text-base text-white bg-black/90 rounded-full p-2 px-4">
+                Sign in
+              </li>
             </Link>
           )}
           {/* </Link> */}

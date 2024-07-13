@@ -6,8 +6,7 @@ import { PiPlant } from "react-icons/pi";
 export default function SecondaryFooter() {
   return (
     <>
-      <div className="max-w-6xl mx-auto  p-3 flex  justify-between items-start md:items-center gap-2 flex-wrap-reverse ">
-
+      <div className="max-w-6xl mx-auto  p-3 flex  justify-between items-start md:items-center gap-2 flex-wrap-reverse px-6 md:px-4 lg:px-3  ">
         <div className="text-gray-600 font-medium text-sm flex md:items-center gap-2 md:gap-3 flex-row flex-wrap ">
           <p>© 2024</p>
           <p>AbodeAlly</p>
