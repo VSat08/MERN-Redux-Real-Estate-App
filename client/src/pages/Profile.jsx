@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { BiHide } from "react-icons/bi";
 import { BiShowAlt } from "react-icons/bi";
@@ -58,6 +58,9 @@ export default function Profile() {
   const [formData, setFormData] = useState({});
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   // console.log(formData)
   // console.log(formData);
 
@@ -269,6 +272,9 @@ export default function Profile() {
     }
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
   return (
     <>
       <div className="w-full px-8 mx-auto  md:max-w-6xl mt-28">
@@ -279,11 +285,14 @@ export default function Profile() {
             className="object-cover w-full h-80"
           />
         </div>
-        <div className="flex items-center gap-1  mt-4 text-white font-bold">
+        <button
+          onClick={handleGoBack}
+          className="flex items-center gap-1 mt-4 text-white font-bold"
+        >
           <RiArrowGoBackFill />
           Home
-        </div>
-        <div className="p-4 flex w-full mx-auto  gap-1 flex-wrap justify-between">
+        </button>
+        <div className="md:p-4 flex w-full mx-auto  gap-1 flex-wrap justify-between">
           {/* left columns */}
           <div className="bg-white/75 md:bg-[rgba(255,255,255,.3)] backdrop-blur-sm w-full md:w-1/3  flex flex-col py-4 rounded-3xl  md:shadow-2xl lg:w-1/3 md:shadow-gray-300 ">
             <div className="relative rounded-full h-24 w-24 self-center mt-2 group">
@@ -326,21 +335,21 @@ export default function Profile() {
 
             <div className="self-center space-y-4">
               <h1 className="leading-snug text-3xl md:text-2xl lg:text-3xl font-extrabold my-2">
-                Hola
+                Hola !
                 <span className="text-sm lg:text-lg block font-semibold">
                   {currentUser.username} !
                 </span>
               </h1>
-              <p className="font-medium text-sm">{currentUser.email}</p>
             </div>
-            <div className="mx-auto my-4 flex gap-5 items-center flex-wrap justify-center">
+
+            <div className="mx-auto my-4 flex gap-5 items-center flex-wrap justify-center ">
               <Link
                 to={"/create-listing"}
-                className=" self-center text-center   hover:scale-105 transition-transform duration-300 ease-out group"
+                className=" self-center text-center   hover:scale-105 transition-transform duration-300 ease-out group  w-auto md:w-44 lg:w-11/12"
               >
                 <motion.button
                   whileTap={{ scale: 0.75 }}
-                  className="bg-gradient-to-r from-gray-900 via-black to-gray-900 p-3 px-4 rounded-xl cursor-pointer font-medium border-none text-white  shadow-xl shadow-gray-400/60 w-40 md:w-44 lg:w-56 text-sm md:text-base flex items-center gap-1 justify-center group-hover:gap-[7px] "
+                  className="bg-gradient-to-r from-gray-900 via-black to-gray-900 p-3 px-4 rounded-xl cursor-pointer font-medium border-none text-white  shadow-xl shadow-gray-400/60 w-auto md:w-44 lg:w-full text-xs sm:text-sm md:text-base flex items-center gap-1 justify-center  group-hover:gap-[7px] "
                 >
                   <FaPencilAlt />
                   Create Listings
@@ -350,7 +359,7 @@ export default function Profile() {
               <motion.button
                 onClick={handleShowListings}
                 whileTap={{ scale: 0.75 }}
-                className="self-center text-center hover:scale-105 transition-transform duration-300 ease-out bg-gradient-to-r from-orange-500 to-yellow-400 text-white rounded-xl shadow-orange-400/35 shadow-lg p-3 px-4 cursor-pointer font-medium border-none  w-40 md:w-44 lg:w-56 text-sm md:text-base flex items-center gap-1 hover:gap-2  justify-center group-hover:gap-[7px]"
+                className="self-center text-center hover:scale-105 transition-transform duration-300 ease-out bg-gradient-to-r from-orange-500 to-yellow-400 text-white rounded-xl shadow-orange-400/35 shadow-lg p-3 px-4 cursor-pointer font-medium border-none  w-auto md:w-44 lg:w-11/12 text-xs sm:text-sm md:text-base flex items-center gap-1 hover:gap-2  justify-center group-hover:gap-[7px]"
               >
                 <GrList />
                 Show Listings
@@ -376,7 +385,7 @@ export default function Profile() {
                 defaultValue={currentUser.username}
                 onChange={handleChange}
                 placeholder="username"
-                className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-inner  shadow-gray-300 text-gray-400 focus:text-black"
+                className="border-2 border-gray-100 px-4 p-2 md:p-3 rounded-xl text-sm sm:text-base outline-none  text-gray-400 focus:text-black"
               />
               <input
                 id="email"
@@ -384,7 +393,7 @@ export default function Profile() {
                 defaultValue={currentUser.email}
                 onChange={handleChange}
                 placeholder="email"
-                className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-lg shadow-gray-200 text-gray-400 focus:text-black"
+                className="border-2 border-gray-100 px-4 p-2 md:p-3 rounded-xl text-sm sm:text-base outline-none shadow-xl shadow-gray-200/50 text-gray-400 focus:text-black"
               />
               <div className="relative">
                 <input
@@ -392,7 +401,7 @@ export default function Profile() {
                   type={showPassword ? "text" : "password"}
                   placeholder="password"
                   onChange={handleChange}
-                  className="border px-4 p-2 md:p-3 rounded-2xl outline-none shadow-inner shadow-gray-300 w-full"
+                  className="border-2 border-gray-100 px-4 p-2 md:p-3 rounded-xl text-sm sm:text-base outline-none w-full"
                 />
                 <button
                   type="button"

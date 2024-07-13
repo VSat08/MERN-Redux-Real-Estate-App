@@ -14,6 +14,7 @@ import { app } from "../firebase";
 import { useSelector } from "react-redux";
 
 import { useNavigate, useParams } from "react-router-dom";
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 export default function UpdateListing() {
   const { currentUser } = useSelector((state) => state.user);
@@ -183,9 +184,18 @@ export default function UpdateListing() {
       setLoading(false);
     }
   };
-
+  const handleGoBack = () => {
+    navigate(-1);
+  };
   return (
-    <main className="px-4 py-4 md:px-20 lg:px-28 mx-auto mt-28">
+    <main className="px-4 py-4 md:px-20 lg:px-28 mx-auto mt-28 ">
+      <button
+        onClick={handleGoBack}
+        className="flex items-center gap-1 mt-4 text-black font-bold"
+      >
+        <RiArrowGoBackFill />
+        back
+      </button>
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-center my-7 animate-fade-up animate-once animate-ease-out">
         Wanna Update
         <span className="text-2xl md:text-4xl lg:text-5xl font-extrabold p md:my-2 block  ">
@@ -195,7 +205,10 @@ export default function UpdateListing() {
           Listing!
         </span>
       </h1>
-      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col sm:flex-row gap-4 relative "
+      >
         <div className="flex flex-col gap-4 flex-1">
           <input
             type="text"
@@ -206,7 +219,7 @@ export default function UpdateListing() {
             required
             onChange={handleChange}
             value={formData.name}
-            className="focus:outline-none rounded-xl  border-[2px] border-orange-500/50 p-3"
+            className="focus:outline-none rounded-xl  border-[2px] border-orange-500/50 p-2 md:p-3 text-sm"
           />
           <textarea
             type="text"
@@ -215,7 +228,7 @@ export default function UpdateListing() {
             required
             onChange={handleChange}
             value={formData.description}
-            className="focus:outline-none rounded-xl  border-[2px] border-orange-500/50 p-3 min-h-32"
+            className="focus:outline-none rounded-xl  border-[2px] border-orange-500/50 p-2 md:p-3 text-sm min-h-32"
           />
           <input
             type="text"
@@ -224,7 +237,7 @@ export default function UpdateListing() {
             required
             onChange={handleChange}
             value={formData.address}
-            className="focus:outline-none rounded-xl  border-[2px] border-orange-500/50 p-3"
+            className="focus:outline-none rounded-xl  border-[2px] border-orange-500/50 p-2 md:p-3 text-sm"
           />
           <div className="flex gap-6 flex-wrap">
             <div className="flex gap-2 items-center">
@@ -257,7 +270,7 @@ export default function UpdateListing() {
               />
               <span>Parking spot</span>
             </div>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center ">
               <input
                 type="checkbox"
                 id="furnished"
@@ -342,7 +355,8 @@ export default function UpdateListing() {
             )}
           </div>
         </div>
-        <div className="flex flex-col flex-1 gap-2">
+
+        <div className="flex flex-col flex-1 gap-2 pb-10 sm:p-0">
           <p className="font-semibold text-xs">
             Images :
             <span className="font-normal text-gray-500 ml-2">
@@ -355,7 +369,7 @@ export default function UpdateListing() {
           <div className="flex items-center gap-4">
             <input
               onChange={(e) => setFiles(e.target.files)}
-              className="relative  w-full  flex-auto rounded-3xl border border-solid border-neutral-300 bg-clip-padding px-5 py-0.5 text-base font-normal text-neutral-400 transition duration-300 ease-in-out shadow-2xl shadow-neutral-800/25 file:text-xs file:-mx-2 file:my-2 file:shadow-md file:shadow-orange-300/60 file:overflow-hidden file:rounded-xl file:border-0 file:border-solid file:border-inherit file:bg-gradient-to-r file:from-orange-500  file:to-yellow-500   file:px-3 file:py-[0.4rem] file:text-neutral-100 file:transition file:duration-150 file:ease-in-out  file:[margin-inline-end:0.75rem] hover:file:opacity-70 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none cursor-pointer file:cursor-pointer file:hover:scale-105 file:hover:rounded-2xl file:hover:shadow-orange-500/70 file:hover:shadow-xl    "
+              className="relative  w-full  flex-auto rounded-3xl border border-solid border-neutral-300 bg-clip-padding px-5 py-0.5 text-sm font-normal text-neutral-400 transition duration-300 ease-in-out shadow-2xl shadow-neutral-800/25 file:text-xs file:-mx-2 file:my-2 file:shadow-md file:shadow-orange-300/60 file:overflow-hidden file:rounded-xl file:border-0 file:border-solid file:border-inherit file:bg-gradient-to-r file:from-orange-500  file:to-yellow-500   file:px-3 file:py-[0.4rem] file:text-neutral-100 file:transition file:duration-150 file:ease-in-out  file:[margin-inline-end:0.75rem] hover:file:opacity-70 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none cursor-pointer file:cursor-pointer file:hover:scale-105 file:hover:rounded-2xl  file:hover:shadow-orange-500/70 file:hover:shadow-xl    "
               type="file"
               id="images"
               accept="image/*"
@@ -400,7 +414,7 @@ export default function UpdateListing() {
           )}
           <button
             disabled={loading || uploading}
-            className=" bg-gradient-to-r from-gray-900 via-black to-gray-900 p-2.5 px-4 rounded-xl cursor-pointer font-medium border-none text-white shadow-xl shadow-black/20  text-sm md:text-base flex items-center gap-1 justify-center  disabled:opacity-70"
+            className=" bg-gradient-to-r from-gray-900 via-black to-gray-900 p-2.5 px-4 rounded-xl cursor-pointer font-medium border-none text-white shadow-xl shadow-black/20  text-sm md:text-base flex items-center gap-1 justify-center  disabled:opacity-70 fixed bottom-2 inset-x-2 sm:relative sm:inset-0 "
           >
             <IoMdAddCircle />
             {loading ? "Updating..." : "Update Listing"}

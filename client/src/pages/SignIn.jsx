@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Logo from "/Logo.png";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -46,7 +48,10 @@ export default function SignIn() {
     }
   };
   return (
-    <div className="py-4 px-12 md:px-16 max-w-lg mx-auto mt-28">
+    <div className="py-4 px-12 md:px-16 max-w-lg mx-auto mt-20">
+      <Link to="/">
+        <img src={Logo} alt="logo" className="w-24 sm:w-32 " />
+      </Link>
       <h1
         className="
         leading-snug
@@ -70,26 +75,26 @@ export default function SignIn() {
           type="email"
           id="email"
           placeholder="Email"
-          className="focus:outline-none rounded-xl border border-1 p-3"
+          className="focus:outline-none rounded-xl border border-1 text-sm sm:text-base p-3"
         />
         <input
           onChange={handleChange}
           type="password"
           id="password"
           placeholder="Password"
-          className="focus:outline-none rounded-xl border border-1 p-3"
+          className="focus:outline-none rounded-xl border border-1 text-sm sm:text-base p-3"
         />
         {error && <p className="text-red-500">{error}</p>}
         <button
           disabled={loading}
-          className="bg-gradient-to-r from-orange-500  to-yellow-300  text-white p-3 rounded-xl shadow-lg  disabled:opacity-20"
+          className="bg-gradient-to-r from-orange-500  to-yellow-300  text-white p-2.5 sm:p-3 text-sm sm:text-base font-medium  rounded-xl shadow-lg  disabled:opacity-20"
         >
           {loading ? "loading" : "Login"}
         </button>
         <OAuth />
       </form>
       <div className="mt-4">
-        <p className=" text-center font-medium ">
+        <p className=" text-center font-medium text-sm sm:text-base">
           Hey! New Face Ah?
           <Link
             to="/sign-up"
