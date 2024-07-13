@@ -145,7 +145,7 @@ export default function Header() {
               </div>
               {/* dropdown */}
               <div
-                className={`p-4 flex flex-col gap-3 border-2 border-gray-50 rounded-xl bg-gradient-to-br from-white to-white/50 w-full backdrop-blur-md absolute top-14 z-10 shadow-2xl shadow-black/40 transition-all duration-500 ${
+                className={`p-4 flex flex-col gap-3 border-2 border-gray-50 rounded-xl bg-gradient-to-br from-white to-white/50 w-full backdrop-blur-md absolute top-14 z-10 shadow-2xl shadow-black/40 transition-all duration-200 ease-out ${
                   dropdownOpen
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 pointer-events-none -translate-y-2"

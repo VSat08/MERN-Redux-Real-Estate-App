@@ -143,123 +143,123 @@ export default function Search() {
     <>
       <div className=" p-4 flex flex-col md:items-start md:flex-row gap-4  max-w-7xl mx-auto mt-28">
         {/* left */}
-        <div className=" p-4 md:p-5 bg-gradient-to-br from-white/40 to-slate-50/20  rounded-3xl shadow-2xl shadow-black/10  md:max-w-[340px]">
-          <form
-            onSubmit={handleSubmit}
-            className={`flex flex-col gap-4 ${formOpen ? "" : "h-14"} ${
-              !formOpen && "overflow-hidden"
-            }  md:h-auto md:overflow-visible transition-height duration-700 ease-in-out `}
-          >
+        <div className=" p-4 md:p-5 bg-gradient-to-br from-white/40 to-slate-50/20  rounded-3xl shadow-2xl shadow-black/10  md:max-w-[340px] ">
+          <form onSubmit={handleSubmit} className={` px-2 flex flex-col gap-4`}>
             <input
               type="text"
               id="searchTerm"
               value={sidebarData.searchTerm}
               onChange={handleChange}
               placeholder="Search listings here..."
-              className=" border-t-slate-400/20 rounded-xl px-4 py-2 w-full bg-white/20 backdrop-blur-md border border-white/20  p-2 outline-none shadow-md"
+              className=" border-t-slate-400/20 rounded-xl px-4 py-2 w-full bg-white/20 backdrop-blur-md border border-white/20  p-2 outline-none shadow-lg text-sm"
             />
-            <div className="flex gap-2 flex-wrap items-center">
-              <label className="font-semibold">Type: </label>
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  id="all"
-                  checked={sidebarData.type === "all"}
-                  onChange={handleChange}
-                  className="w-4 "
-                />
-                <span>Rent & Sale</span>
-              </div>
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  id="rent"
-                  checked={sidebarData.type === "rent"}
-                  onChange={handleChange}
-                  className="w-4 "
-                />
-                <span>Rent</span>
-              </div>
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  id="sale"
-                  checked={sidebarData.type === "sale"}
-                  onChange={handleChange}
-                  className="w-4 "
-                />
-                <span> Sale</span>
-              </div>
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  id="offer"
-                  checked={sidebarData.offer}
-                  onChange={handleChange}
-                  className="w-4 "
-                />
-                <span>Offer</span>
-              </div>
-            </div>
-            <div className="flex gap-2 flex-wrap items-center">
-              <label className="font-semibold">Amenities: </label>
+            <div
+              className={` flex flex-col gap-4  overflow-hidden transition-[max-height] duration-500 ease-in-out text-sm ${
+                formOpen ? "max-h-[1000px]" : "max-h-20"
+              } md:max-h-none md:overflow-visible`}
+            >
+              <div className="flex gap-2 flex-wrap  flex-col">
+                {/* <label className="font-semibold">Type: </label> */}
+                <div className="flex gap-2">
+                  <input
+                    type="checkbox"
+                    id="all"
+                    checked={sidebarData.type === "all"}
+                    onChange={handleChange}
+                    className="w-4 "
+                  />
+                  <span>Rent & Sale</span>
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="checkbox"
+                    id="rent"
+                    checked={sidebarData.type === "rent"}
+                    onChange={handleChange}
+                    className="w-4 "
+                  />
+                  <span>Rent</span>
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="checkbox"
+                    id="sale"
+                    checked={sidebarData.type === "sale"}
+                    onChange={handleChange}
+                    className="w-4 "
+                  />
+                  <span> Sale</span>
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="checkbox"
+                    id="offer"
+                    checked={sidebarData.offer}
+                    onChange={handleChange}
+                    className="w-4 "
+                  />
+                  <span>Offer</span>
+                </div>
+                {/* <label className="font-semibold">Amenities: </label> */}
 
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  id="parking"
-                  checked={sidebarData.parking}
-                  onChange={handleChange}
-                  className="w-4 "
-                />
-                <span> Parking</span>
+                <div className="flex gap-2">
+                  <input
+                    type="checkbox"
+                    id="parking"
+                    checked={sidebarData.parking}
+                    onChange={handleChange}
+                    className="w-4 "
+                  />
+                  <span> Parking</span>
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="checkbox"
+                    id="furnished"
+                    checked={sidebarData.furnished}
+                    onChange={handleChange}
+                    className="w-4 "
+                  />
+                  <span>Furnished</span>
+                </div>
               </div>
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  id="furnished"
-                  checked={sidebarData.furnished}
+
+              <div className="flex items-center gap-2">
+                {/* <label className="font-semibold">Sort: </label> */}
+                <select
                   onChange={handleChange}
-                  className="w-4 "
-                />
-                <span>Furnished</span>
+                  defaultValue={"created_at_desc"}
+                  id="sort_order"
+                  className="bg-white/20 backdrop-blur-md border border-white/20 rounded-xl p-2 outline-none shadow-xl"
+                >
+                  <option
+                    value="regularPrice_desc"
+                    className="bg-white/20 backdrop-blur-md"
+                  >
+                    Price high to low
+                  </option>
+                  <option
+                    value="regularPrice_asc"
+                    className="bg-white/20 backdrop-blur-md"
+                  >
+                    Price low to high
+                  </option>
+                  <option
+                    value="createdAt_desc"
+                    className="bg-white/20 backdrop-blur-md"
+                  >
+                    Latest
+                  </option>
+                  <option
+                    value="createdAt_asc"
+                    className="bg-white/20 backdrop-blur-md"
+                  >
+                    Oldest
+                  </option>
+                </select>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <label className="font-semibold">Sort: </label>
-              <select
-                onChange={handleChange}
-                defaultValue={"created_at_desc"}
-                id="sort_order"
-                className="bg-white/20 backdrop-blur-md border border-white/20 rounded-xl p-2 outline-none shadow-xl"
-              >
-                <option
-                  value="regularPrice_desc"
-                  className="bg-white/20 backdrop-blur-md"
-                >
-                  Price high to low
-                </option>
-                <option
-                  value="regularPrice_asc"
-                  className="bg-white/20 backdrop-blur-md"
-                >
-                  Price low to high
-                </option>
-                <option
-                  value="createdAt_desc"
-                  className="bg-white/20 backdrop-blur-md"
-                >
-                  Latest
-                </option>
-                <option
-                  value="createdAt_asc"
-                  className="bg-white/20 backdrop-blur-md"
-                >
-                  Oldest
-                </option>
-              </select>
-            </div>
             <button className="  hover:opacity-70 transition-transform duration-200 ease-out bg-gradient-to-r from-orange-500 to-yellow-400 text-white rounded-xl shadow-orange-400/35 shadow-lg p-2 cursor-pointer font-medium border-none">
               Search
             </button>
