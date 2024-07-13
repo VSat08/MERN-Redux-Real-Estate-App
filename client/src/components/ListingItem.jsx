@@ -6,7 +6,7 @@ import { IoBed } from "react-icons/io5";
 
 export default function ListingItem({ listing }) {
   return (
-    <div className="bg-white shadow-md rounded-3xl hover:shadow-2xl hover:-translate-y-2  transition-all duration-300 ease-in-out overflow-hidden w-full sm:w-[280px]   md:w-[270px] mx-auto lg:mx-0">
+    <div className="bg-white  rounded-3xl hover:shadow-2xl hover:shadow-gray-400/40 hover:-translate-y-2  transition-all border-r border-b border-gray-200 duration-300 ease-in-out overflow-hidden w-full sm:w-[280px]   md:w-[270px] mx-auto lg:mx-0">
       <Link to={`/listing/${listing._id}`}>
         <img
           src={listing.imageUrls[0]}
@@ -38,18 +38,18 @@ export default function ListingItem({ listing }) {
             {listing.type === "rent" && " / month"}
           </p>
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1 font-medium bg-black text-neutral-100 rounded-full px-2 py-0.5  border border-gray-500 text-xs">
-              <IoBed />
+            <div className="flex items-center gap-1 font-medium bg-gray-100 text-black  rounded-full px-2 py-0.5  border border-gray-200 text-xs">
               {listing.bedrooms > 1
                 ? `${listing.bedrooms} beds`
-                : `${listing.bedrooms} bed`}
+                : `${listing.bedrooms} bed`}{" "}
+              <IoBed className="text-black" />
             </div>
 
-            <div className="flex items-center gap-1  font-medium bg-orange-400/15 rounded-full px-2 py-0.5 text-orange-500 border border-orange-500/30 text-xs">
-              <FaBath />
+            <div className="flex items-center gap-1  font-medium bg-gray-100 rounded-full px-2 py-0.5 text-black border border-gray-300 text-xs">
               {listing.bathrooms > 1
                 ? `${listing.bathrooms} baths`
                 : `${listing.bathrooms} bath`}
+              <FaBath className="text-black" />
             </div>
           </div>
         </div>
