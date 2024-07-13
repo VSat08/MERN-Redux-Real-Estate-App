@@ -17,6 +17,10 @@ import SecondaryFooter from "../components/SecondaryFooter";
 import BottomNav from "../components/BottomNav";
 import PrimaryFooter from "../components/PrimaryFooter";
 
+
+
+
+
 export default function Home() {
   const navigate = useNavigate();
   const [offerListings, setOfferListings] = useState([]);
@@ -24,6 +28,8 @@ export default function Home() {
   const [saleListings, setSaleListings] = useState([]);
 
   const [search, setsearch] = useState("");
+
+
 
   useEffect(() => {
     const fetchOfferListings = async () => {
@@ -60,6 +66,7 @@ export default function Home() {
 
     fetchOfferListings();
   }, []);
+
 
   return (
     <div className="mt-28 ">

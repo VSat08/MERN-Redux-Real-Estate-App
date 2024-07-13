@@ -6,6 +6,15 @@ import Logo from "/Logo.png";
 import { BiSearchAlt } from "react-icons/bi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 
+import Swal from "sweetalert2";
+
+import { useDispatch } from "react-redux";
+import {
+  signOutUserStart,
+  signOutUserFailure,
+  signOutUserSuccess,
+} from "../redux/user/userSlice";
+
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +23,8 @@ export default function Header() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,13 +60,40 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname]); // Add location.pathname as a dependency
 
-  const handleDropdownItemClick = () => {
+  const handleSignOut = async () => {
     setDropdownOpen(false);
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch("/api/auth/signout");
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message));
+        return;
+      }
+      dispatch(signOutUserSuccess());
+      navigate("/");
+
+      Swal.fire({
+        position: "top",
+        icon: "success",
+        toast: "true",
+        timerProgressBar: "true",
+        title: "Signed out",
+        showConfirmButton: false,
+        timer: 3000,
+        color: "#fff",
+        padding: "5px",
+        background: "#1a1a1a",
+      });
+    } catch (error) {
+      dispatch(signOutUserFailure(error.message));
+    }
   };
 
   return (
     <header className="  px-2.5 md:px-4 bg-white fixed top-0 inset-x-0 w-full z-[100] ">
-      <div className="flex justify-between items-center max-w-6xl mx-auto py-3 min-h-[4.5rem] md:px-6  px-3 my-3  relative  ">
+      <div className="flex justify-between items-center max-w-6xl mx-auto py-3 min-h-[4.5rem] md:px-6  px-3 my-3  relative gap-2 ">
         <Link to="/">
           <img src={Logo} alt="logo" className="w-24 sm:w-32 hidden sm:block" />
         </Link>
@@ -63,11 +101,11 @@ export default function Header() {
         {showHeaderSearch && (
           <form
             onSubmit={handleSubmit}
-            className="bg-slate-50/40 p-2 px-4 md:px-6 rounded-3xl flex justify-between items-center border  border-slate-100 shadow-2xl "
+            className="bg-slate-50/40 p-2 px-4 md:px-6 rounded-3xl flex justify-between items-center border  border-slate-300 shadow-2xl  flex-1 sm:flex-none bo"
           >
             <input
               type="text"
-              placeholder="search your comfrot zone"
+              placeholder="search your comfort zone"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="bg-transparent focus:outline-none w-full sm:w-48 md:w-64 px-2 py-1 text-xs sm:text-sm  text-neutral-700 placeholder:text-gray-400 placeholder:font-light"
@@ -114,14 +152,14 @@ export default function Header() {
                 }`}
               >
                 <p
-                  onClick={handleDropdownItemClick}
+                  onClick={() => setDropdownOpen(false)}
                   className="cursor-pointer text-xs sm:text-sm font-medium text-gray-800"
                 >
                   Messages
                 </p>
 
                 <p
-                  onClick={handleDropdownItemClick}
+                  onClick={() => setDropdownOpen(false)}
                   className="cursor-pointer text-xs sm:text-sm font-medium text-gray-800"
                 >
                   My Listings
@@ -130,32 +168,32 @@ export default function Header() {
                 <Link
                   to="/profile"
                   className="text-xs sm:text-sm font-medium text-gray-800"
-                  onClick={handleDropdownItemClick}
+                  onClick={() => setDropdownOpen(false)}
                 >
                   Account
                 </Link>
                 <p
-                  onClick={handleDropdownItemClick}
+                  onClick={() => setDropdownOpen(false)}
                   className="cursor-pointer text-xs sm:text-sm font-medium text-gray-800"
                 >
                   About
                 </p>
                 <hr className="w-full " />
                 <p
-                  onClick={handleDropdownItemClick}
+                  onClick={() => setDropdownOpen(false)}
                   className="cursor-pointer text-xs sm:text-sm font-medium text-gray-800"
                 >
                   AdobeAlly
                 </p>
                 <p
-                  onClick={handleDropdownItemClick}
+                  onClick={() => setDropdownOpen(false)}
                   className="cursor-pointer text-xs sm:text-sm font-medium text-gray-800"
                 >
                   {" "}
                   Help & Support
                 </p>
                 <p
-                  onClick={handleDropdownItemClick}
+                  onClick={handleSignOut}
                   className="cursor-pointer text-xs sm:text-sm font-medium text-gray-800"
                 >
                   Logout
