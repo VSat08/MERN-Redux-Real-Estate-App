@@ -121,6 +121,22 @@ export default function Search() {
     navigate(`/search?${searchQuery}`);
   };
 
+  const handleReset = () => {
+    // Reset all filters to their default values
+    setSidebarData({
+      searchTerm: "",
+      type: "all",
+      parking: false,
+      furnished: false,
+      offer: false,
+      sort: "created_at",
+      order: "desc",
+    });
+
+    // Perform initial search with default filters
+    navigate(`/search`);
+  };
+
   const onShowMoreClick = async () => {
     const numberOfListings = listings.length;
     const startIndex = numberOfListings;
@@ -262,6 +278,13 @@ export default function Search() {
 
             <button className="  hover:opacity-70 transition-transform duration-200 ease-out bg-gradient-to-r from-orange-500 to-yellow-400 text-white rounded-xl shadow-orange-400/35 shadow-lg p-2 cursor-pointer font-medium border-none">
               Search
+            </button>
+            <button
+              type="button"
+              onClick={handleReset}
+              className=" text-black cursor-pointer  border-none hover:opacity-70 text-sn font-semibold  "
+            >
+              Reset Filter
             </button>
           </form>
 
