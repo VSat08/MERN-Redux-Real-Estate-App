@@ -47,20 +47,21 @@ export default function Contact({ listing }) {
           <p className="font-bold text-3xl text-center">{listing.name}</p>
 
           <div className="flex justify-between items-center gap-3 my-3 flex-wrap">
-            <div className="text-sm flex gap-1 items-center justify-between bg-slate-50 flex-1 rounded-lg shadow-2xl shadow-black/90 border-2">
-              <p className="text-white font-medium  px-4 rounded-lg bg-gradient-to-r from-orange-400 to-yellow-500 py-1.5 ">
+            <div className=" flex gap-1 items-center justify-between bg-slate-50 flex-1 rounded-lg shadow-2xl shadow-black/90 border-2 full text-xs sm:text-sm">
+              <p className="text-white font-medium  px-2 rounded-lg bg-gradient-to-r from-orange-400 to-yellow-500 py-1.5 ">
                 Owner
               </p>
-              <p className="px-2">{landLord.username}</p>
+              <p className="px-1  ">{landLord.username}</p>
             </div>
-            <div className="text-sm flex gap-1 items-center justify-between bg-slate-50 flex-1 rounded-lg shadow-2xl shadow-black/90 border-2">
-              <p className="text-white font-medium  px-4 rounded-lg bg-gradient-to-r from-orange-400 to-yellow-500 py-1.5 ">
+            <div className=" flex gap-1 items-center justify-between bg-slate-50 flex-1 rounded-lg shadow-2xl shadow-black/90 border-2 w-full text-xs sm:text-sm">
+              <p className="text-white font-medium  px-2 rounded-lg bg-gradient-to-r from-orange-400 to-yellow-500 py-1.5  ">
                 mail
               </p>
-              <p className="px-2">{landLord.email}</p>
+              <p className="px-1  truncate ">{landLord.email}</p>
             </div>
           </div>
-          <p className="font-medium text-sm">
+
+          <p className="font-medium text-xs sm:text-sm">
             Contact <span className="text-orange-500">{landLord.username}</span>{" "}
             with a lovely greeting!
           </p>

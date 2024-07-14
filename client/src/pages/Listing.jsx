@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   FaArrowTrendUp,
   FaFacebookF,
@@ -27,10 +27,13 @@ import {
   FaShare,
 } from "react-icons/fa";
 import Contact from "../components/Contact";
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 export default function Listing() {
   SwiperCore.use([Navigation]);
   const [isOpen, setIsOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const params = useParams();
   const { currentUser } = useSelector((state) => state.user);
@@ -40,7 +43,7 @@ export default function Listing() {
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
   const [link, setLink] = useState("");
-  // console.log(listing);
+  // console.log(error);
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -93,6 +96,19 @@ export default function Listing() {
       "Instagram sharing is not directly supported. You can copy the link and share it manually on Instagram."
     );
   };
+
+  const contactOwner = () => {
+    if (currentUser) {
+      setIsOpen(true);
+      setContact(true);
+    } else {
+      navigate("/sign-in");
+    }
+  };
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
   return (
     <main>
       {loading && (
@@ -124,6 +140,14 @@ export default function Listing() {
 
       {listing && !loading && !error && (
         <>
+          <button
+            onClick={handleGoBack}
+            className="text-white font-bold absolute top-28 inset-x-8 z-20 flex items-center gap-1 mt-4 "
+          >
+            <RiArrowGoBackFill />
+            Go back
+          </button>
+
           <div className="absolute -top-10 -z-20 left-0 w-full">
             <Swiper
               navigation
@@ -149,7 +173,6 @@ export default function Listing() {
                 </SwiperSlide>
               ))}
             </Swiper>
-
             <div
               className="fixed bottom-24 md:bottom-10 right-[3%] z-50  rounded-full w-14 h-14 md:w-16 md:h-16 flex justify-center items-center bg-orange-400/70  backdrop-blur-sm shadow-xl shadow-orange-500/30  cursor-pointer"
               onClick={() => {
@@ -163,12 +186,15 @@ export default function Listing() {
 
             <div className="flex flex-col max-w-5xl mx-auto p-3 my-7 mb-20 md:mb-auto relative z-20 -mt-32 sm:-mt-28 gap-12">
               <div className="space-y-2">
-                <p className=" text-3xl sm:text-3xl md:text-4xl lg:text-5xl  text-white font-semibold">
-                  {listing.name} - $
-                  {listing.offer
-                    ? listing.discountPrice.toLocaleString("en-US")
-                    : listing.regularPrice.toLocaleString("en-US")}
-                  {listing.type === "rent" && " / month"}
+                <p className=" text-2xl sm:text-3xl md:text-4xl lg:text-5xl  text-white font-light flex items-center flex-wrap gap-1">
+                  {listing.name}
+                  <span className="  text-xs bg-orange-500/80  rounded-lg p-1 px-2 font-medium">
+                    $ { " "}
+                    {listing.offer
+                      ? listing.discountPrice.toLocaleString("en-US")
+                      : listing.regularPrice.toLocaleString("en-US")}
+                    {listing.type === "rent" && " / month"}
+                  </span>
                 </p>
                 <p className="flex items-center gap-2 text-white  text-sm font-medium">
                   <FaMapMarkerAlt className="text-slate-300" />
@@ -179,13 +205,13 @@ export default function Listing() {
               <div className="flex gap-3 px-3  justify-between mb-8 items-start">
                 {/* left div */}
                 <div className="flex flex-col  mx-auto  gap-6 flex-1">
-                  <div className="flex gap-4 mt-6">
-                    <p className="bg-orange-400 w-full max-w-[200px] text-white text-center p-1 rounded-xl">
+                  <div className="flex gap-4 mt-6 text-sm sm:text-base">
+                    <p className="bg-orange-400 w-full max-w-[200px] text-white text-center p-2 rounded-xl">
                       {listing.type === "rent" ? "For Rent" : "For Sale"}
                     </p>
                     {listing.offer && (
-                      <p className="bg-black/90 w-full max-w-[200px] text-white text-center p-1 rounded-xl">
-                        ${+listing.regularPrice - +listing.discountPrice} OFF !
+                      <p className="bg-black/90 w-full max-w-[200px] text-white text-center p-2 rounded-xl">
+                        ${+listing.regularPrice - +listing.discountPrice} OFF!
                       </p>
                     )}
                   </div>
@@ -195,7 +221,7 @@ export default function Listing() {
                     </span>
                     {listing.description}
                   </p>
-                  <ul className="text-slate-600 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6">
+                  <ul className="text-slate-600 font-semibold text-xs sm:text-sm flex flex-wrap items-center gap-4 sm:gap-6">
                     <li className="flex items-center gap-1 whitespace-nowrap ">
                       <FaBed className="text-lg" />
                       {listing.bedrooms > 1
@@ -239,13 +265,11 @@ export default function Listing() {
                       : listing.regularPrice.toLocaleString("en-US")}
                     {listing.type === "rent" && " / month"}
                   </p>
-                  {currentUser && listing.userRef !== currentUser._id ? (
+                  {!currentUser ||
+                  (currentUser && listing.userRef !== currentUser._id) ? (
                     <button
                       className="bg-gradient-to-r from-orange-400 to-yellow-500  rounded-lg p-3 md:px-8 md:py-1.5  text-white font-medium hover:opacity-70"
-                      onClick={() => {
-                        setIsOpen(true);
-                        setContact(true);
-                      }}
+                      onClick={contactOwner}
                     >
                       Contact Owner
                     </button>
