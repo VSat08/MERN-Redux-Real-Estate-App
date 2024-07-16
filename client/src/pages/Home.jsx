@@ -17,10 +17,6 @@ import SecondaryFooter from "../components/SecondaryFooter";
 import BottomNav from "../components/BottomNav";
 import PrimaryFooter from "../components/PrimaryFooter";
 
-
-
-
-
 export default function Home() {
   const navigate = useNavigate();
   const [offerListings, setOfferListings] = useState([]);
@@ -28,8 +24,6 @@ export default function Home() {
   const [saleListings, setSaleListings] = useState([]);
 
   const [search, setsearch] = useState("");
-
-
 
   useEffect(() => {
     const fetchOfferListings = async () => {
@@ -66,7 +60,6 @@ export default function Home() {
 
     fetchOfferListings();
   }, []);
-
 
   return (
     <div className="mt-28 ">
@@ -129,7 +122,7 @@ export default function Home() {
       </div>
 
       {/* swiper */}
-      <div className="my-4">
+      <div className="my-4 max-w-7xl mx-auto">
         <Swiper
           loop={true}
           slidesPerView={3}
@@ -140,6 +133,7 @@ export default function Home() {
           }}
           navigation={true}
           modules={[Autoplay, Navigation]}
+          className=""
         >
           {offerListings &&
             offerListings.length > 0 &&
@@ -147,7 +141,7 @@ export default function Home() {
               <SwiperSlide key={listing._id}>
                 <img
                   src={`${listing.imageUrls[0]}`}
-                  className=" h-[150px] sm:h-[200px] md:h-[300px] lg:h-[350px] object-cover rounded-xl sm:rounded-3xl shadow-xl"
+                  className=" h-[150px] w-full sm:h-[200px] md:h-[300px] lg:h-[350px] object-cover rounded-xl sm:rounded-3xl shadow-xl"
                 />
               </SwiperSlide>
             ))}
