@@ -341,7 +341,7 @@ export default function Listing() {
                   <p className="text-lg font-semibold  text-center mt-2">
                     Share with
                   </p>
-                  <ul className="flex list-none gap-10 items-center mx-auto ">
+                  <ul className="flex list-none gap-6 items-center mx-auto ">
                     <li className="cursor-pointer" onClick={shareToWhatsApp}>
                       <IoLogoWhatsapp className="text-3xl text-green-500" />
                     </li>

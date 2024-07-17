@@ -14,6 +14,7 @@ import {
   signOutUserFailure,
   signOutUserSuccess,
 } from "../redux/user/userSlice";
+import { VscSettings } from "react-icons/vsc";
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
@@ -111,6 +112,7 @@ export default function Header() {
             onSubmit={handleSubmit}
             className="bg-slate-50/40 p-2 px-4 md:px-6 rounded-3xl flex justify-between items-center border  border-slate-300 shadow-2xl  flex-1 sm:flex-none"
           >
+            <VscSettings className="" />
             <input
               type="text"
               placeholder="search your comfort zone"

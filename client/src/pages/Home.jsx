@@ -269,7 +269,7 @@ export default function Home() {
 
       {/* why adobe ally cards */}
       <div className="max-w-6xl mx-auto px-6 md:px-4 lg:px-3  flex flex-col gap-12 my-8">
-        <h1 className="  sm:text-xl md:text-2xl font-semibold text-gray-800 text-center md:text-left">
+        <h1 className="  sm:text-lg md:text-xl font-semibold text-gray-800 text-center md:text-left">
           Your All-in-One Home Finding Solution <br />{" "}
           <span className=" text-4xl sm:text-5xl md:text-7xl font-extrabold text-black/90">
             {" "}
@@ -389,7 +389,7 @@ export default function Home() {
                 className="absolute -top-14 md:-top-20 w-20 md:w-32 left-0 z-10"
               />
               <div className="flex flex-col gap-4 rounded-3xl bg-transparent text-slate-50/90 backdrop-blur-sm border-2 border-white/75 p-6 lg:p-12  -translate-x-2 -translate-y-2 ">
-                <p className="text-xs sm:text-sm md:text-base">
+                <p className="text-xs sm:text-sm italic font-light tracking-wider">
                   Finding my dream home was a breeze with AbodeAlly. Their
                   search tools and expert agents made the entire process smooth
                   and enjoyable.
@@ -415,8 +415,8 @@ export default function Home() {
                 alt="quote"
                 className="absolute -top-14 md:-top-20 w-20 md:w-32 left-0 z-10"
               />
-              <div className="flex flex-col gap-4 rounded-3xl bg-white/25 backdrop-blur-[3px] border-2 border-white/75 p-6 lg:p-12  -translate-x-2 -translate-y-2 ">
-                <p className=" text-xs sm:text-sm md:text-base">
+              <div className="flex flex-col gap-4 rounded-3xl bg-white/35 backdrop-blur-[3px] border-2 border-white/75 p-6 lg:p-12  -translate-x-2 -translate-y-2 ">
+                <p className=" text-xs sm:text-sm italic font-light tracking-wider">
                   Finding my dream home was a breeze with AbodeAlly. Their
                   search tools and expert agents made the entire process smooth
                   and enjoyable.
@@ -443,7 +443,7 @@ export default function Home() {
                 className="absolute -top-14 md:-top-20 w-20 md:w-32 left-0 z-10"
               />
               <div className="lex flex-col gap-4 rounded-3xl bg-transparent text-slate-50/90 backdrop-blur-sm border-2 border-white/75 p-6 lg:p-12  -translate-x-2 -translate-y-2 ">
-                <p className=" text-xs sm:text-sm md:text-base">
+                <p className=" text-xs sm:text-sm italic font-light tracking-wider">
                   Finding my dream home was a breeze with AbodeAlly. Their
                   search tools and expert agents made the entire process smooth
                   and enjoyable.
