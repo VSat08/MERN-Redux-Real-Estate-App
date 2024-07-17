@@ -22,6 +22,7 @@ export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
   const [saleListings, setSaleListings] = useState([]);
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
   const [search, setsearch] = useState("");
 
@@ -60,6 +61,29 @@ export default function Home() {
 
     fetchOfferListings();
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <div className="mt-28 ">
@@ -476,6 +500,15 @@ export default function Home() {
       <div className="my-[4.5rem] md:m-0">
         <BottomNav />
       </div>
+
+      {showScrollButton && (
+        <button
+          onClick={scrollToTop}
+          className="fixed z-50 bottom-20 right-4 bg-gradient-to-br from-orange-400/70 to-yellow-400/50 backdrop-blur-md text-black font-medium border-2 border-gray-300 p-3 rounded-full shadow-2xl hover:opacity-90 focus:outline-none text-sm"
+        >
+          scroll to top &#8657;
+        </button>
+      )}
     </div>
   );
 }
