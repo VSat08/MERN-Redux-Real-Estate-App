@@ -61,17 +61,6 @@ export default function Profile() {
 
   const navigate = useNavigate();
 
-  // console.log(formData)
-  // console.log(formData);
-
-  // console.log(file);
-  // console.log(uploadPerc);
-
-  // firebase storage
-  //  allow read;
-  //     allow write:if
-  //     request.resource.size < 2 * 1024 * 1024 &&
-  //     request.resource.contentType.matches('image/.*')
 
   useEffect(() => {
     if (file) {
@@ -113,7 +102,6 @@ export default function Profile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
 
     try {
       dispatch(updateUserStart());
@@ -260,7 +248,7 @@ export default function Profile() {
       const data = await res.json();
 
       if (data.success === false) {
-        // console.log(data.message);
+        console.log(data.message);
         return;
       }
 
@@ -268,7 +256,7 @@ export default function Profile() {
         prev.filter((listing) => listing._id !== listingId)
       );
     } catch (error) {
-      // console.log(error.message);
+      console.log(error.message);
     }
   };
 
@@ -449,16 +437,15 @@ export default function Profile() {
         <AnimatePresence>
           {isOpen && (
             <Modal>
-              <h2 className="flex gap-2 items-center justify-center text-2xl my-7">
+              <h2 className="flex gap-2 items-center justify-center text-xl md:text-2xl my-7">
                 My Listings{" "}
                 <FaUmbrellaBeach className="animate-bounce animate-infinite animate-duration-[3000ms] animate-ease-in-out" />
               </h2>
-              {/* <p>Modal Content</p> */}
               <div className="overflow-y-auto max-h-60 space-y-2">
                 {/* loading condition */}
                 {loadingUserListing && (
                   <div className=" flex items-center justify-center  w-full">
-                    <l-helix size="70" speed="5" color="orange"></l-helix>
+                    <l-helix size="50" speed="5" color="orange"></l-helix>
                   </div>
                 )}
                 {/* listing display */}
@@ -472,7 +459,7 @@ export default function Profile() {
                     >
                       <Link to={`/listing/${listing._id}`}>
                         <img
-                          className="h-14 w-14 rounded-full object-cover"
+                          className="h-12 w-12 sm:h-14 sm:w-14 rounded-full object-cover"
                           src={listing.imageUrls[0]}
                           alt="Listing cover"
                         />
@@ -481,20 +468,20 @@ export default function Profile() {
                         className="flex-1 truncate"
                         to={`/listing/${listing._id}`}
                       >
-                        <p className="text-sm font-semibold text-slate-700 ">
+                        <p className="text-xs sm:text-sm font-semibold text-slate-700 ">
                           {listing.name}
                         </p>
                       </Link>
-                      <div className="space-x-3">
+                      <div className="space-x-4">
                         <button
                           onClick={() => handleListingDelete(listing._id)}
                           className="text-black/80 ring-2 rounded-full ring-red-400 p-1 hover:scale-110 hover:-translate-y-1 transition-all ease-in-out duration-200 animate-wiggle animate-infinite "
                         >
-                          <IoMdTrash className="" />
+                          <IoMdTrash className="text-sm" />
                         </button>
                         <Link to={`/update-listing/${listing._id}`}>
                           <button className="text-gray-600 ring-2 rounded-full ring-green-400 p-1 hover:scale-110 hover:-translate-y-1 transition-all ease-in-out duration-200 animate-wiggle animate-infinite">
-                            <GrEdit className="" />
+                            <GrEdit className="text-sm" />
                           </button>
                         </Link>
                       </div>
@@ -502,9 +489,10 @@ export default function Profile() {
                   ))}
 
                 {!loadingUserListing && userListings.length === 0 && (
-                  <p className="text-center ">
-                    No Listings Available right now : ) Why dont you create some
-                    listings
+                  <p className="text-center font-semibold  text-sm">
+                    No Listings right now : )
+                    <br />
+                    Why dont create one!
                   </p>
                 )}
               </div>

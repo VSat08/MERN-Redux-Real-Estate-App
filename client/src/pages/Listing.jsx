@@ -24,6 +24,7 @@ import {
   FaChair,
   FaMapMarkerAlt,
   FaParking,
+  FaPencilAlt,
   FaShare,
 } from "react-icons/fa";
 import Contact from "../components/Contact";
@@ -43,7 +44,7 @@ export default function Listing() {
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
   const [link, setLink] = useState("");
-  // console.log(error);
+
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -142,7 +143,7 @@ export default function Listing() {
         <>
           <button
             onClick={handleGoBack}
-            className="text-white font-bold absolute top-28 inset-x-8 z-20 flex items-center gap-1 mt-4 "
+            className="text-white font-bold absolute top-28 inset-x-8 z-20 flex items-center gap-1 mt-4 w-max"
           >
             <RiArrowGoBackFill />
             Go back
@@ -173,6 +174,18 @@ export default function Listing() {
                 </SwiperSlide>
               ))}
             </Swiper>
+
+            {currentUser && listing.userRef === currentUser._id && (
+              <div
+                className="fixed top-32  right-[3%] z-50  cursor-pointer "
+                onClick={() => {
+                  navigate(`/update-listing/${listing._id}`);
+                }}
+              >
+                <FaPencilAlt className="text-gray-200 text-xl" />
+              </div>
+            )}
+
             <div
               className="fixed bottom-24 md:bottom-10 right-[3%] z-50  rounded-full w-14 h-14 md:w-16 md:h-16 flex justify-center items-center bg-orange-400/70  backdrop-blur-sm shadow-xl shadow-orange-500/30  cursor-pointer"
               onClick={() => {
@@ -189,7 +202,7 @@ export default function Listing() {
                 <p className=" text-2xl sm:text-3xl md:text-4xl lg:text-5xl  text-white font-light flex items-center flex-wrap gap-1">
                   {listing.name}
                   <span className="  text-xs bg-orange-500/80  rounded-lg p-1 px-2 font-medium">
-                    $ { " "}
+                    ${" "}
                     {listing.offer
                       ? listing.discountPrice.toLocaleString("en-US")
                       : listing.regularPrice.toLocaleString("en-US")}
