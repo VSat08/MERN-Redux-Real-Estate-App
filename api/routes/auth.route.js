@@ -4,7 +4,7 @@ import {
   signin,
   google,
   signOut,
-} from "../controllers/auth.controller.js";
+} from "../Controllers/auth.controller";
 const router = express.Router();
 
 router.post("/signup", signup);
