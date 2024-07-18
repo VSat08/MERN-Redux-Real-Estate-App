@@ -437,7 +437,7 @@ export default function Profile() {
         <AnimatePresence>
           {isOpen && (
             <Modal>
-              <h2 className="flex gap-2 items-center justify-center text-xl md:text-2xl my-7">
+              <h2 className="flex gap-2 items-center justify-center text-xl md:text-2xl font-semibold my-7">
                 My Listings{" "}
                 <FaUmbrellaBeach className="animate-bounce animate-infinite animate-duration-[3000ms] animate-ease-in-out" />
               </h2>

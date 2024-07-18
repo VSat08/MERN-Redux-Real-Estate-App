@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  FaArrowTrendUp,
-  FaFacebookF,
-  FaInstagram,
-  FaXTwitter,
-} from "react-icons/fa6";
+import { FaArrowTrendUp, FaFacebookF, FaXTwitter } from "react-icons/fa6";
 import "ldrs/helix";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSelector } from "react-redux";
@@ -44,7 +39,6 @@ export default function Listing() {
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
   const [link, setLink] = useState("");
-
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -356,18 +350,19 @@ export default function Listing() {
                   </p>
                   <ul className="flex list-none gap-6 items-center mx-auto ">
                     <li className="cursor-pointer" onClick={shareToWhatsApp}>
-                      <IoLogoWhatsapp className="text-3xl text-green-500" />
+                      <IoLogoWhatsapp className="text-2xl md:text-3xl text-green-500" />
                     </li>
                     <li className="cursor-pointer" onClick={shareToTwitter}>
-                      <FaXTwitter className="text-3xl text-black" />
+                      <FaXTwitter className="text-2xl md:text-3xl text-black" />
                     </li>
                     <li className="cursor-pointer" onClick={shareToFacebook}>
-                      <FaFacebookF className="text-3xl text-blue-500" />
+                      <FaFacebookF className="text-2xl md:text-3xl text-blue-500" />
                     </li>
                     <li className="cursor-pointer" onClick={shareToInstagram}>
                       <img
                         src="https://freelogopng.com/images/all_img/1658586823instagram-logo-transparent.png"
-                        className="w-8 h-8"
+                        className="w-6 md:w-8 h-6 md:h-8"
+                        alt="insta_share"
                       />
                     </li>
                   </ul>
