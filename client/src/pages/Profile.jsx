@@ -357,7 +357,7 @@ export default function Profile() {
 
           {/* right column */}
           <div className="w-full md:w-3/5 mx-auto md:max-w-md">
-            <h1 className="leading-snug text-xl md:text-2xl lg:text-4xl  font-extrabold mt-2 md:mt-16 ">
+            <h1 className="leading-snug text-xl md:text-2xl lg:text-4xl  font-extrabold mt-2 md:mt-16 animate-fade-down animate-once animate-ease-out">
               Let's
               <span className="text-3xl md:text-5xl lg:text-6xl block">
                 Update Your Profile!

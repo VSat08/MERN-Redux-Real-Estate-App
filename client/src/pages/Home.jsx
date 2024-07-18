@@ -17,6 +17,9 @@ import SecondaryFooter from "../components/SecondaryFooter";
 import BottomNav from "../components/BottomNav";
 import PrimaryFooter from "../components/PrimaryFooter";
 
+import { motion } from "framer-motion";
+import { container, fadeIn, fadeOut, item } from "../variants";
+
 export default function Home() {
   const navigate = useNavigate();
   const [offerListings, setOfferListings] = useState([]);
@@ -86,39 +89,78 @@ export default function Home() {
   };
 
   return (
-    <div className="mt-28 ">
+    <div className="mt-28 overflow-hidden">
       {/* top */}
       <div className="flex flex-col gap-6 justify-center max-w-6xl mx-auto pt-32 pb-8 px-6 md:px-4 lg:px-3  text-center relative ">
-        <img
+        <motion.img
+          variants={fadeIn("up", 0.2)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{
+            once: false,
+            amount: 0.7,
+          }}
           alt="floating house 1"
           src="https://raw.githubusercontent.com/VSat08/image-utils/main/3d-rendering-isometric-house.png"
           className=" w-60 md:w-80  absolute -top-8  md:-top-16 md:right-80 -z-10"
         />
-        <img
+        <motion.img
+          variants={fadeIn("up", 0.2)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{
+            once: false,
+            amount: 0.7,
+          }}
           alt="floating house 2"
           src="https://raw.githubusercontent.com/VSat08/image-utils/main/3d-rendering-isometric-house%20(2).png"
           className=" w-28 md:w-60 lg:w-80  absolute top-36  md:top-28 right-0 -z-10 "
         />
-        <h1 className="font-extrabold text-4xl md:text-5xl lg:text-7xl text-black/85">
+        <motion.h1
+          variants={fadeIn("up", 0.2, 1.4)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{
+            once: false,
+            amount: 0.7,
+          }}
+          className="font-extrabold text-4xl md:text-5xl lg:text-7xl text-black/85"
+        >
           Find your next{" "}
           <span className="text-transparent bg-gradient-to-r from-[#FC501E] to-[#FBA930] bg-clip-text">
             perfect
           </span>
           <br />
           place with ease
-        </h1>
+        </motion.h1>
 
-        <div className="text-gray-600 font-medium text-xs sm:text-sm max-w-xl mx-auto">
+        <motion.div
+          variants={fadeIn("up", 0.2, 1.5)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{
+            once: false,
+            amount: 0.7,
+          }}
+          className="text-gray-600 font-medium text-xs sm:text-sm max-w-xl mx-auto"
+        >
           AbodeAlly will help you find your home fast, easy and comfortable. Our
           expert support are always available.
-        </div>
+        </motion.div>
 
         <div className=" w-full  ">
           {/* searchbox and button */}
           <div className="flex items-center gap-2 justify-center  ">
             {/* searchbox */}
 
-            <form
+            <motion.form
+              variants={fadeIn("down", 0.2, 0, 1)}
+              initial="hidden"
+              whileInView={"show"}
+              viewport={{
+                once: false,
+                amount: 0.7,
+              }}
               id="homepage-search"
               onSubmit={() => navigate(`/search?searchTerm=${search}`)}
             >
@@ -133,20 +175,39 @@ export default function Home() {
                 />
                 <VscSettings className="text-xl" />
               </div>
-            </form>
+            </motion.form>
 
-            <Link
-              to={`/search?searchTerm=${search}`}
-              className="bg-black/90 text-neutral-100 font-light md:font-medium rounded-full text-xs py-3 sm:text-sm px-4 sm:px-6 md:px-8"
+            <motion.div
+              variants={fadeIn("up", 0.2, 1)}
+              initial="hidden"
+              whileInView={"show"}
+              viewport={{
+                once: false,
+                amount: 0.7,
+              }}
             >
-              Explore
-            </Link>
+              <Link
+                to={`/search?searchTerm=${search}`}
+                className="bg-black/90 text-neutral-100 font-light md:font-medium rounded-full text-xs py-3 sm:text-sm px-4 sm:px-6 md:px-8"
+              >
+                Explore
+              </Link>
+            </motion.div>
           </div>
         </div>
       </div>
 
       {/* swiper */}
-      <div className="my-4 max-w-7xl mx-auto">
+      <motion.div
+        variants={fadeIn("up", 0.2, 0, 1.5)}
+        initial="hidden"
+        whileInView={"show"}
+        viewport={{
+          once: false,
+          amount: 0.2,
+        }}
+        className="my-4 max-w-7xl mx-auto"
+      >
         <Swiper
           loop={true}
           slidesPerView={3}
@@ -164,19 +225,32 @@ export default function Home() {
             offerListings.map((listing) => (
               <SwiperSlide key={listing._id}>
                 <img
+                  alt="image slides"
                   src={`${listing.imageUrls[0]}`}
                   className=" h-[150px] w-full sm:h-[200px] md:h-[300px] lg:h-[350px] object-cover rounded-xl sm:rounded-3xl shadow-xl"
                 />
               </SwiperSlide>
             ))}
         </Swiper>
-      </div>
+      </motion.div>
 
       {/* listing results for offer, sale and rent */}
       <div className="max-w-6xl mx-auto px-6 md:px-4 lg:px-3  flex flex-col gap-8 my-10 ">
         {offerListings && offerListings.length > 0 && (
-          <div>
-            <div className="flex items-center justify-between my-6 ">
+          <motion.div
+            className="container"
+            variants={container()}
+            initial="hidden"
+            whileInView="show"
+            viewport={{
+              once: false,
+              amount: 0.1,
+            }}
+          >
+            <motion.div
+              variants={item("left", 1)}
+              className="flex items-center justify-between my-6 "
+            >
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-black/85 tracking-tight">
                 Hot Deals
               </h2>
@@ -187,63 +261,109 @@ export default function Home() {
                 Check more{" "}
                 <PiTrendUpBold className="group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-200 ease-in-out" />
               </Link>
-            </div>
-            <div className="flex flex-wrap gap-4 ">
+            </motion.div>
+
+            <motion.div
+              variants={item("up", 1)}
+              className="flex flex-wrap gap-4 "
+            >
               {offerListings.map((listing) => (
                 <ListingItem key={listing._id} listing={listing} />
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
 
         {rentListings && rentListings.length > 0 && (
-          <div>
+          <motion.div
+            variants={container()}
+            initial="hidden"
+            whileInView="show"
+            viewport={{
+              once: false,
+              amount: 0.1,
+            }}
+          >
             <div className="flex items-center justify-between my-6 ">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-black/85 tracking-tight">
-                Rental Gems
-              </h2>
-              <Link
-                to={"/search?type=rent"}
-                className="flex items-center gap-1 rounded-full border border-black p-2 px-2 sm:px-4 text-xs sm:text-sm w-fit group"
+              <motion.h2
+                variants={item("left", 1)}
+                className="text-3xl md:text-4xl lg:text-5xl font-semibold text-black/85 tracking-tight"
               >
-                Check more{" "}
-                <PiTrendUpBold className="group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-200 ease-in-out" />
-              </Link>
+                Rental Gems
+              </motion.h2>
+              <motion.div variants={item("right", 1)}>
+                <Link
+                  to={"/search?type=rent"}
+                  className="flex items-center gap-1 rounded-full border border-black p-2 px-2 sm:px-4 text-xs sm:text-sm w-fit group"
+                >
+                  Check more{" "}
+                  <PiTrendUpBold className="group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-200 ease-in-out" />
+                </Link>
+              </motion.div>
             </div>
-            <div className="flex flex-wrap gap-4 ">
+            <motion.div
+              variants={item("up", 1)}
+              className="flex flex-wrap gap-4 "
+            >
               {rentListings.map((listing) => (
                 <ListingItem key={listing._id} listing={listing} />
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
 
         {saleListings && saleListings.length > 0 && (
-          <div>
+          <motion.div
+            variants={container()}
+            initial="hidden"
+            whileInView="show"
+            viewport={{
+              once: false,
+              amount: 0.1,
+            }}
+          >
             <div className="flex items-center justify-between my-6 ">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-black/85 tracking-tight">
-                Buy Now
-              </h2>
-              <Link
-                to={"/search?type=sale"}
-                className="flex items-center gap-1 rounded-full border border-black p-2 px-2 sm:px-4 text-xs sm:text-sm w-fit group"
+              <motion.h2
+                variants={item("left", 1)}
+                className="text-3xl md:text-4xl lg:text-5xl font-semibold text-black/85 tracking-tight"
               >
-                Check more{" "}
-                <PiTrendUpBold className="group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-200 ease-in-out" />
-              </Link>
+                Buy Now
+              </motion.h2>
+              <motion.div variants={item("right", 1)}>
+                <Link
+                  to={"/search?type=sale"}
+                  className="flex items-center gap-1 rounded-full border border-black p-2 px-2 sm:px-4 text-xs sm:text-sm w-fit group"
+                >
+                  Check more{" "}
+                  <PiTrendUpBold className="group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-200 ease-in-out" />
+                </Link>
+              </motion.div>
             </div>
-            <div className="flex flex-wrap gap-4 ">
+
+            <motion.div
+              variants={item("up", 1)}
+              className="flex flex-wrap gap-4 "
+            >
               {saleListings.map((listing) => (
                 <ListingItem key={listing._id} listing={listing} />
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
       </div>
 
       {/* Advertisment */}
       <div className="max-w-6xl mx-auto px-6 md:px-4 lg:px-3  py-28 flex flex-col md:flex-row items-center ">
-        <div className="relative ">
+        <motion.div
+          variants={fadeIn("up-left", 0.2, 0, 0)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{
+            once: false,
+            amount: 0.7,
+          }}
+          className="relative "
+        >
           <img
             alt="floating house 3"
             src="https://raw.githubusercontent.com/VSat08/image-utils/main/three-dimensional-house-model.png"
@@ -254,8 +374,18 @@ export default function Home() {
             src="https://raw.githubusercontent.com/VSat08/image-utils/main/3d-rendering-isometric-house%20(1).png"
             className="object-cover w-48 -mt-44"
           />
-        </div>
-        <div className="flex flex-col gap-6 flex-1 text-left  lg:text-right relative ">
+        </motion.div>
+
+        <motion.div
+          variants={fadeIn("up-left", 0.2, 0, 1.2)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{
+            once: false,
+            amount: 0.1,
+          }}
+          className="flex flex-col gap-6 flex-1 text-left  lg:text-right relative "
+        >
           <img
             src="https://raw.githubusercontent.com/VSat08/image-utils/e93380af34c9785124d7e5e58657b286f67839ee/Handy%20Star.svg"
             alt="stars"
@@ -288,22 +418,43 @@ export default function Home() {
             your specific needs. Start your journey to a new home today with
             just a few clicks.
           </p>
-        </div>
+        </motion.div>
       </div>
 
-      {/* why adobe ally cards */}
+      {/* why abode ally cards */}
       <div className="max-w-6xl mx-auto px-6 md:px-4 lg:px-3  flex flex-col gap-12 my-8">
-        <h1 className="  sm:text-lg md:text-xl font-semibold text-gray-800 text-center md:text-left">
+        <motion.h1
+          variants={fadeIn("down", 0.2, 0, 1)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{
+            once: false,
+            amount: 0.7,
+          }}
+          className="  sm:text-lg md:text-xl font-semibold text-gray-800 text-center md:text-left"
+        >
           Your All-in-One Home Finding Solution <br />{" "}
           <span className=" text-4xl sm:text-5xl md:text-7xl font-extrabold text-black/90">
             {" "}
             AbodeAlly
           </span>
-        </h1>
+        </motion.h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 lg:gap-6 items-center">
+        <motion.div
+          variants={container()}
+          initial="hidden"
+          whileInView="show"
+          viewport={{
+            once: false,
+            amount: 0.1,
+          }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 lg:gap-6 items-center"
+        >
           {/* card one */}
-          <div className=" rounded-[1.7rem] bg-gradient-to-b from-[#FF8517] to-[#FFD02A] p-1 md:scale-90 ">
+          <motion.div
+            variants={item("left", 1.5)}
+            className=" rounded-[1.7rem] bg-gradient-to-b from-[#FF8517] to-[#FFD02A] p-1 md:scale-90 "
+          >
             <div className="flex flex-col gap-4 rounded-3xl bg-white p-6 lg:p-8   ">
               <div className="flex flex-col gap-1 ">
                 <HiHome className="text-3xl " />
@@ -325,10 +476,13 @@ export default function Home() {
                 Explore Listings <PiTrendUpBold className="text-xl" />
               </Link>
             </div>
-          </div>
+          </motion.div>
 
           {/* card two */}
-          <div className=" rounded-[1.7rem] bg-gradient-to-b from-[#FF8517] to-[#FFD02A] p-1 md:scale-110 shadow-2xl shadow-black/15">
+          <motion.div
+            variants={item("up", 1.8)}
+            className=" rounded-[1.7rem] bg-gradient-to-b from-[#FF8517] to-[#FFD02A] p-1 md:scale-110 shadow-2xl shadow-black/15"
+          >
             <div className="flex flex-col gap-4 rounded-3xl bg-white p-6 lg:p-8   ">
               <div className="flex flex-col gap-1">
                 <MdSpaceDashboard className="text-3xl " />
@@ -353,10 +507,13 @@ export default function Home() {
                 Search your dream place <PiTrendUpBold className="text-xl" />
               </Link>
             </div>
-          </div>
+          </motion.div>
 
           {/* card three */}
-          <div className=" rounded-[1.7rem] bg-gradient-to-b from-[#FF8517] to-[#FFD02A] p-1 md:scale-90">
+          <motion.div
+            variants={item("right", 1.5)}
+            className=" rounded-[1.7rem] bg-gradient-to-b from-[#FF8517] to-[#FFD02A] p-1 md:scale-90"
+          >
             <div className="flex flex-col gap-4 rounded-3xl bg-white p-6 lg:p-8   ">
               <div className="flex flex-col gap-1 ">
                 <GrDiamond className="text-3xl " />
@@ -377,8 +534,8 @@ export default function Home() {
                 Seek Help <PiTrendUpBold className="text-xl" />
               </Link>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* testimonials */}
@@ -390,12 +547,32 @@ export default function Home() {
           backgroundRepeat: "no-repeat",
           backgroundSize: " cover",
           backgroundPosition: "100% center",
-          height: "1200px",
+          height: "1100px",
           width: "100%",
           minHeight: "100vh", // Adjust this value as needed
         }}
       >
-        <div className="max-w-7xl mx-auto p-3  pt-32 md:pt-56 lg:pt-32 flex flex-col  gap-12 md:gap-28 lg:gap-32 px-6 md:px-4 lg:px-3 ">
+        <motion.div
+          variants={fadeOut("up", 0.1, 1, 1)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{
+            once: false,
+            amount: 0.2,
+          }}
+          className="bg-[linear-gradient(to_bottom,#090909,#0a0a0a,#000000)] w-full absolute inset-x-0 bottom-32  min-h-44 "
+        ></motion.div>
+
+        <motion.div
+          variants={fadeIn("up", 0.2, 0, 1)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{
+            once: false,
+            amount: 0.7,
+          }}
+          className="max-w-7xl mx-auto p-3  pt-32 md:pt-56 lg:py-32 flex flex-col  gap-12 md:gap-28 lg:gap-32 px-6 md:px-4 lg:px-3  "
+        >
           <h1 className=" text-3xl sm:text-xl md:text-2xl font-semibold text-white text-center md:text-left">
             People say <br />{" "}
             <span className=" text-4xl sm:text-5xl md:text-7xl font-extrabold ">
@@ -486,15 +663,25 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      {/* footer */}
-      <PrimaryFooter />
-      {/* secondary footer */}
+      <motion.div
+        variants={fadeIn("up", 0.3, 1, 1)}
+        initial="hidden"
+        whileInView={"show"}
+        viewport={{
+          once: false,
+          amount: 0.8,
+        }}
+      >
+        {/* footer */}
+        <PrimaryFooter />
+        {/* secondary footer */}
 
-      <hr className="bg-gray-300  w-full" />
-      <SecondaryFooter />
+        <hr className="bg-gray-300  w-full" />
+        <SecondaryFooter />
+      </motion.div>
 
       {/* bottom nav */}
       <div className="my-[4.5rem] md:m-0">

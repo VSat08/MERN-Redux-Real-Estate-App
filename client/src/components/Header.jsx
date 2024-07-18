@@ -6,6 +6,9 @@ import Logo from "/Logo.png";
 import { BiSearchAlt } from "react-icons/bi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 
+import { motion } from "framer-motion";
+import { fadeIn } from "../variants";
+
 import Swal from "sweetalert2";
 
 import { useDispatch } from "react-redux";
@@ -103,9 +106,23 @@ export default function Header() {
       }  px-2.5 md:px-4 bg-white fixed top-0 inset-x-0 w-full z-[100] `}
     >
       <div className="flex justify-between items-center max-w-6xl mx-auto py-3 min-h-[4.5rem] md:px-6  px-3 my-3  relative gap-2 ">
-        <Link to="/">
-          <img src={Logo} alt="logo" className="w-24 sm:w-32 hidden sm:block" />
-        </Link>
+        <motion.div
+          variants={fadeIn("down", 0.2, 1.5)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{
+            once: false,
+          }}
+        >
+          <Link to="/">
+            <img
+              loading="lazy"
+              src={Logo}
+              alt="logo"
+              className="w-24 sm:w-32 hidden sm:block"
+            />
+          </Link>
+        </motion.div>
 
         {showHeaderSearch && (
           <form
@@ -126,7 +143,15 @@ export default function Header() {
           </form>
         )}
 
-        <ul className="flex gap-1 sm:gap-2  items-center font-semibold ">
+        <motion.ul
+          variants={fadeIn("down", 0.3, 0, 1.5)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{
+            once: false,
+          }}
+          className="flex gap-1 sm:gap-2  items-center font-semibold "
+        >
           <HiOutlineLocationMarker className="text-2xl" />
 
           <Link to="/">
@@ -193,7 +218,7 @@ export default function Header() {
                   onClick={() => setDropdownOpen(false)}
                   className="cursor-pointer text-xs sm:text-sm font-medium text-gray-800"
                 >
-                  AdobeAlly
+                  AbodeAlly
                 </p>
                 <p
                   onClick={() => setDropdownOpen(false)}
@@ -218,7 +243,7 @@ export default function Header() {
             </Link>
           )}
           {/* </Link> */}
-        </ul>
+        </motion.ul>
       </div>
       <hr className="bg-gray-100 h-[1px] w-full" />
     </header>

@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
 import { PiInstagramLogoBold, PiFacebookLogo } from "react-icons/pi";
 import { RiLinkedinFill } from "react-icons/ri";
 import { FiYoutube } from "react-icons/fi";
 import Logo from "/Logo.png";
-
 
 export default function PrimaryFooter() {
   return (
@@ -22,8 +21,8 @@ export default function PrimaryFooter() {
         <p className="text-sm my-1">Report neighbourhood concern</p>
       </div>
       <div>
-        <h3 className="font-medium text-sm md:text-base">AdobeAlly</h3>
-        <p className="text-sm my-1">AdobeAlly</p>
+        <h3 className="font-medium text-sm md:text-base">AbodeAlly</h3>
+        <p className="text-sm my-1">AbodeAlly</p>
         <p className="text-sm my-1">Newsroom</p>
         <p className="text-sm my-1"> New features</p>
         <p className="text-sm my-1"> Careers</p>
