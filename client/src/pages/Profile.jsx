@@ -281,7 +281,7 @@ export default function Profile() {
           Home
         </button>
         <div className="md:p-4 flex w-full mx-auto  gap-1 flex-wrap justify-between">
-          {/* left columns */}
+    
           <div className="bg-white/75 md:bg-[rgba(255,255,255,.3)] backdrop-blur-sm w-full md:w-1/3  flex flex-col py-4 rounded-3xl  md:shadow-2xl lg:w-1/3 md:shadow-gray-300 ">
             <div className="relative rounded-full h-24 w-24 self-center mt-2 group">
               <div className="absolute inset-0 h-full w-full  z-10  rounded-full flex group overflow-hidden ">
@@ -355,7 +355,7 @@ export default function Profile() {
             </div>
           </div>
 
-          {/* right column */}
+    
           <div className="w-full md:w-3/5 mx-auto md:max-w-md">
             <h1 className="leading-snug text-xl md:text-2xl lg:text-4xl  font-extrabold mt-2 md:mt-16 animate-fade-down animate-once animate-ease-out">
               Let's
@@ -433,7 +433,7 @@ export default function Profile() {
             </p>
           </div>
         </div>
-        {/* modal */}
+      
         <AnimatePresence>
           {isOpen && (
             <Modal>
@@ -442,13 +442,13 @@ export default function Profile() {
                 <FaUmbrellaBeach className="animate-bounce animate-infinite animate-duration-[3000ms] animate-ease-in-out" />
               </h2>
               <div className="overflow-y-auto max-h-60 space-y-2">
-                {/* loading condition */}
+             
                 {loadingUserListing && (
                   <div className=" flex items-center justify-center  w-full">
                     <l-helix size="50" speed="5" color="orange"></l-helix>
                   </div>
                 )}
-                {/* listing display */}
+             
                 {userListings &&
                   !loadingUserListing &&
                   userListings.length > 0 &&
@@ -507,7 +507,7 @@ export default function Profile() {
           )}
         </AnimatePresence>
       </div>
-      {/* bottom nav */}
+    
       <div className="my-[4.5rem] md:m-0">
         <BottomNav />
       </div>

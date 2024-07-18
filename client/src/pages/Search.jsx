@@ -122,7 +122,6 @@ export default function Search() {
   };
 
   const handleReset = () => {
-    // Reset all filters to their default values
     setSidebarData({
       searchTerm: "",
       type: "all",
@@ -133,7 +132,6 @@ export default function Search() {
       order: "desc",
     });
 
-    // Perform initial search with default filters
     navigate(`/search`);
   };
 
@@ -158,7 +156,7 @@ export default function Search() {
   return (
     <>
       <div className=" p-4 flex flex-col md:items-start md:flex-row gap-4  max-w-7xl mx-auto mt-28">
-        {/* left */}
+     
         <div className=" p-4 md:p-5 bg-gradient-to-br from-white/40 to-slate-50/20  rounded-3xl shadow-2xl shadow-black/10  md:max-w-[340px] ">
           <form onSubmit={handleSubmit} className={` px-2 flex flex-col gap-4`}>
             <input
@@ -175,7 +173,6 @@ export default function Search() {
               } md:max-h-none md:overflow-visible`}
             >
               <div className="flex gap-2 flex-wrap  flex-col">
-                {/* <label className="font-semibold">Type: </label> */}
                 <div className="flex gap-2">
                   <input
                     type="checkbox"
@@ -216,7 +213,7 @@ export default function Search() {
                   />
                   <span>Offer</span>
                 </div>
-                {/* <label className="font-semibold">Amenities: </label> */}
+              
 
                 <div className="flex gap-2">
                   <input
@@ -241,7 +238,6 @@ export default function Search() {
               </div>
 
               <div className="flex items-center gap-2">
-                {/* <label className="font-semibold">Sort: </label> */}
                 <select
                   onChange={handleChange}
                   defaultValue={"created_at_desc"}
@@ -302,7 +298,6 @@ export default function Search() {
           </div>
         </div>
 
-        {/* right */}
         <div
           className="flex-1
       
@@ -312,14 +307,12 @@ export default function Search() {
             Listing Results
           </h1>
           <div className="px-3 py-7 flex flex-wrap gap-4 ">
-            {/* loading Condition */}
             {loading && (
               <div className=" flex items-center justify-center h-96  w-full">
                 <l-helix size="70" speed="5" color="orange"></l-helix>
               </div>
             )}
 
-            {/* error condition */}
             {!loading && listings.length === 0 && (
               <div className="w-full">
                 <img
@@ -352,7 +345,6 @@ export default function Search() {
           )}
         </div>
       </div>
-      {/* bottom nav */}
       <div className="my-[4.5rem] md:m-0">
         <BottomNav />
       </div>

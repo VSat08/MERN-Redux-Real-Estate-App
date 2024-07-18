@@ -90,7 +90,6 @@ export default function Home() {
 
   return (
     <div className="mt-28 overflow-hidden">
-      {/* top */}
       <div className="flex flex-col gap-6 justify-center max-w-6xl mx-auto pt-32 pb-8 px-6 md:px-4 lg:px-3  text-center relative ">
         <motion.img
           variants={fadeIn("up", 0.2)}
@@ -101,6 +100,7 @@ export default function Home() {
             amount: 0.7,
           }}
           alt="floating house 1"
+          loading="lazy"
           src="https://raw.githubusercontent.com/VSat08/image-utils/main/3d-rendering-isometric-house.png"
           className=" w-60 md:w-80  absolute -top-8  md:-top-16 md:right-80 -z-10"
         />
@@ -113,6 +113,7 @@ export default function Home() {
             amount: 0.7,
           }}
           alt="floating house 2"
+          loading="lazy"
           src="https://raw.githubusercontent.com/VSat08/image-utils/main/3d-rendering-isometric-house%20(2).png"
           className=" w-28 md:w-60 lg:w-80  absolute top-36  md:top-28 right-0 -z-10 "
         />
@@ -149,10 +150,7 @@ export default function Home() {
         </motion.div>
 
         <div className=" w-full  ">
-          {/* searchbox and button */}
           <div className="flex items-center gap-2 justify-center  ">
-            {/* searchbox */}
-
             <motion.form
               variants={fadeIn("down", 0.2, 0, 1)}
               initial="hidden"
@@ -197,9 +195,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* swiper */}
       <motion.div
-        variants={fadeIn("up", 0.2, 0, 1.5)}
+        variants={fadeIn("up", 0.2, 0, 1.2)}
         initial="hidden"
         whileInView={"show"}
         viewport={{
@@ -227,6 +224,7 @@ export default function Home() {
                 <img
                   alt="image slides"
                   src={`${listing.imageUrls[0]}`}
+                  loading="lazy"
                   className=" h-[150px] w-full sm:h-[200px] md:h-[300px] lg:h-[350px] object-cover rounded-xl sm:rounded-3xl shadow-xl"
                 />
               </SwiperSlide>
@@ -234,7 +232,6 @@ export default function Home() {
         </Swiper>
       </motion.div>
 
-      {/* listing results for offer, sale and rent */}
       <div className="max-w-6xl mx-auto px-6 md:px-4 lg:px-3  flex flex-col gap-8 my-10 ">
         {offerListings && offerListings.length > 0 && (
           <motion.div
@@ -352,7 +349,6 @@ export default function Home() {
         )}
       </div>
 
-      {/* Advertisment */}
       <div className="max-w-6xl mx-auto px-6 md:px-4 lg:px-3  py-28 flex flex-col md:flex-row items-center ">
         <motion.div
           variants={fadeIn("up-left", 0.2, 0, 0)}
@@ -366,11 +362,13 @@ export default function Home() {
         >
           <img
             alt="floating house 3"
+            loading="lazy"
             src="https://raw.githubusercontent.com/VSat08/image-utils/main/three-dimensional-house-model.png"
             className="object-cover w-[600px]"
           />
           <img
             alt="floating house 4"
+            loading="lazy"
             src="https://raw.githubusercontent.com/VSat08/image-utils/main/3d-rendering-isometric-house%20(1).png"
             className="object-cover w-48 -mt-44"
           />
@@ -421,7 +419,6 @@ export default function Home() {
         </motion.div>
       </div>
 
-      {/* why abode ally cards */}
       <div className="max-w-6xl mx-auto px-6 md:px-4 lg:px-3  flex flex-col gap-12 my-8">
         <motion.h1
           variants={fadeIn("down", 0.2, 0, 1)}
@@ -450,7 +447,6 @@ export default function Home() {
           }}
           className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 lg:gap-6 items-center"
         >
-          {/* card one */}
           <motion.div
             variants={item("left", 1.5)}
             className=" rounded-[1.7rem] bg-gradient-to-b from-[#FF8517] to-[#FFD02A] p-1 md:scale-90 "
@@ -478,7 +474,6 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* card two */}
           <motion.div
             variants={item("up", 1.8)}
             className=" rounded-[1.7rem] bg-gradient-to-b from-[#FF8517] to-[#FFD02A] p-1 md:scale-110 shadow-2xl shadow-black/15"
@@ -509,7 +504,6 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* card three */}
           <motion.div
             variants={item("right", 1.5)}
             className=" rounded-[1.7rem] bg-gradient-to-b from-[#FF8517] to-[#FFD02A] p-1 md:scale-90"
@@ -538,7 +532,6 @@ export default function Home() {
         </motion.div>
       </div>
 
-      {/* testimonials */}
       <div
         className="relative  "
         style={{
@@ -549,7 +542,7 @@ export default function Home() {
           backgroundPosition: "100% center",
           height: "1100px",
           width: "100%",
-          minHeight: "100vh", // Adjust this value as needed
+          minHeight: "100vh",
         }}
       >
         <motion.div
@@ -582,7 +575,6 @@ export default function Home() {
           </h1>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-8 items-center  justify-items-center ">
-            {/* card one */}
             <div className=" rounded-[1.7rem] border-2 border-[#FF8517] relative max-w-xs sm:max-w-md lg:scale-95">
               <img
                 src="https://raw.githubusercontent.com/VSat08/image-utils/5088eed69fae0597131204f694a58d70e09e694a/quote.svg"
@@ -609,7 +601,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* card two */}
             <div className=" rounded-[1.7rem] bg-gradient-to-b from-[#FF6565]  via-[#FF912D]  from-10%  to-[#FFD02A] relative max-w-xs sm:max-w-md lg:scale-110">
               <img
                 src="https://raw.githubusercontent.com/VSat08/image-utils/5088eed69fae0597131204f694a58d70e09e694a/quote.svg"
@@ -636,7 +627,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* card three */}
             <div className=" rounded-[1.7rem] border-2 border-[#FF8517] relative max-w-xs sm:max-w-md lg:scale-95">
               <img
                 src="https://raw.githubusercontent.com/VSat08/image-utils/5088eed69fae0597131204f694a58d70e09e694a/quote.svg"
@@ -675,15 +665,12 @@ export default function Home() {
           amount: 0.8,
         }}
       >
-        {/* footer */}
         <PrimaryFooter />
-        {/* secondary footer */}
 
         <hr className="bg-gray-300  w-full" />
         <SecondaryFooter />
       </motion.div>
 
-      {/* bottom nav */}
       <div className="my-[4.5rem] md:m-0">
         <BottomNav />
       </div>

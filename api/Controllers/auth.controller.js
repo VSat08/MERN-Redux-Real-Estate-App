@@ -3,7 +3,6 @@ import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
-// sign up
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
 
@@ -19,13 +18,10 @@ export const signup = async (req, res, next) => {
 
     res.status(201).json("User created successfully !");
   } catch (err) {
-    // res.status(500).json(err.message);
     return next(err);
-    // next(errorHandler(550,"My personal error"));
   }
 };
 
-// sign in
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -57,7 +53,6 @@ export const signin = async (req, res, next) => {
   }
 };
 
-// google authnetication
 export const google = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });

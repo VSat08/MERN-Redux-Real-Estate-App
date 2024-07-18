@@ -86,7 +86,6 @@ export default function Listing() {
   };
 
   const shareToInstagram = () => {
-    // Instagram doesn't have a direct sharing API for web
     alert(
       "Instagram sharing is not directly supported. You can copy the link and share it manually on Instagram."
     );
@@ -210,7 +209,7 @@ export default function Listing() {
               </div>
 
               <div className="flex gap-3 px-3  justify-between mb-8 items-start">
-                {/* left div */}
+               
                 <div className="flex flex-col  mx-auto  gap-6 flex-1">
                   <div className="flex gap-4 mt-6 text-sm sm:text-base">
                     <p className="bg-orange-400 w-full max-w-[200px] text-white text-center p-2 rounded-xl">
@@ -250,7 +249,7 @@ export default function Listing() {
                       {listing.furnished ? "Furnished" : "Unfurnished"}
                     </li>
                   </ul>
-                  {/* images */}
+               
                   <div className="grid grid-cols-3 gap-3 md:gap-4 md:items-start items-stretch lg:grid-cols-2 ">
                     {listing.imageUrls.map((imageUrl, index) => (
                       <img
@@ -263,7 +262,7 @@ export default function Listing() {
                   </div>
                 </div>
 
-                {/* right div */}
+            
                 <div className="fixed bottom-0 inset-x-0 md:sticky md:inset-0 md:top-20 flex-row items-center md:items-stretch justify-between flex md:flex-col  mx-auto  gap-6 bg-white  px-8 py-4 md:px-6 md:py-10 md:rounded-3xl shadow-2xl shadow-black/5 md:border-none border-t border-t-gray-300 ">
                   <p className="md:mt-4 text-xl font-medium">
                     $
@@ -301,11 +300,11 @@ export default function Listing() {
             </div>
           </div>
 
-          {/* for contact */}
+        
           <AnimatePresence>
             {isOpen && (
               <Modal>
-                {/* <p>Modal Content</p> */}
+            
                 {contact ? (
                   <Contact listing={listing} />
                 ) : (
@@ -324,7 +323,7 @@ export default function Listing() {
             )}
           </AnimatePresence>
 
-          {/* for copy */}
+       
           <AnimatePresence>
             {copied && (
               <Modal>

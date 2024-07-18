@@ -62,10 +62,10 @@ export default function Header() {
       }
     };
 
-    handleScroll(); // Call once immediately to set initial state
+    handleScroll(); 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [location.pathname]); // Add location.pathname as a dependency
+  }, [location.pathname]); 
 
   const handleSignOut = async () => {
     setDropdownOpen(false);
@@ -158,7 +158,6 @@ export default function Header() {
             <li className="hidden sm:inline">Home</li>
           </Link>
 
-          {/* <Link to="/profile"> */}
           {currentUser ? (
             <div className="relative bg-gray-50 border border-slate-200 rounded-full  p-2 px-3">
               <div className="flex items-center gap-2 ">
@@ -178,7 +177,6 @@ export default function Header() {
                   />
                 </div>
               </div>
-              {/* dropdown */}
               <div
                 className={`p-4 flex flex-col gap-3 border-2 border-gray-50 rounded-xl bg-gradient-to-br from-white to-white/50 w-full backdrop-blur-md absolute top-14 z-50 shadow-2xl shadow-black/40 transition-all duration-200 ease-out ${
                   dropdownOpen
@@ -242,7 +240,7 @@ export default function Header() {
               </li>
             </Link>
           )}
-          {/* </Link> */}
+       
         </motion.ul>
       </div>
       <hr className="bg-gray-100 h-[1px] w-full" />

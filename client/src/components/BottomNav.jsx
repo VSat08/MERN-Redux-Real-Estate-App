@@ -24,18 +24,14 @@ export default function BottomNav() {
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
 
-        // Check if we've scrolled to the bottom
         if (windowHeight + currentScrollY >= documentHeight - 10) {
           setIsVisible(true);
         } else if (currentScrollY > lastScrollY) {
-          // If not at the bottom and scrolling down, hide the navbar
           setIsVisible(false);
         } else {
-          // If scrolling up, show the navbar
           setIsVisible(true);
         }
 
-        // Remember current page location to use in the next move
         setLastScrollY(currentScrollY);
       }
     };
@@ -43,7 +39,6 @@ export default function BottomNav() {
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", controlNavbar);
 
-      // Cleanup function
       return () => {
         window.removeEventListener("scroll", controlNavbar);
       };

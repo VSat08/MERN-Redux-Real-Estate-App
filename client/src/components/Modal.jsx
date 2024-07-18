@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 
 export const Modal = ({ children }) => {
   const modalVariants = {
-    // open: { opacity: 1, x: 0 },
-    // closed: { opacity: 0, x: "-100%" },
     open: { opacity: 1, y: 0, rotateY: "0deg" },
     closed: { opacity: 0, y: "100%", rotateY: "-45deg" },
   };
